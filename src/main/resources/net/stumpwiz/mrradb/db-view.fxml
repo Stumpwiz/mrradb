@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="550.0" maxWidth="800.0" minHeight="550.0"
+      minWidth="800.0" prefHeight="550.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/17"
+      fx:controller="net.stumpwiz.mrradb.controllers.DbController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <TabPane prefHeight="678.0" prefWidth="760.0" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Home">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="311.0" prefWidth="460.0">
+                <VBox layoutX="1.0" prefHeight="480.0" prefWidth="760.0">
+                    <HBox alignment="CENTER" prefHeight="361.0" prefWidth="400.0">
+                        <ImageView fitHeight="48.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@../../../img/mrraHeader.png"/>
+                        </ImageView>
+                    </HBox>
+                    <HBox alignment="BOTTOM_CENTER" prefHeight="37.0" prefWidth="460.0">
+                        <Button fx:id="longRosterButton" contentDisplay="CENTER" minHeight="-Infinity"
+                                minWidth="-Infinity" mnemonicParsing="false" onAction="#onLongRosterButtonClick"
+                                prefHeight="30.0" prefWidth="120.0" text="Long Form Roster" textAlignment="CENTER">
+                            <HBox.margin>
+                                <Insets right="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="shortRosterButton" minHeight="-Infinity" minWidth="-Infinity"
+                                mnemonicParsing="false" onAction="#onShortRosterButtonClick" prefHeight="30.0"
+                                prefWidth="120.0" text="Short Form Roster">
+                            <HBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="expiringButton" mnemonicParsing="false" onAction="#onExpiringButtonClick"
+                                prefHeight="30.0" prefWidth="120.0" text="Expiring Terms">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <VBox.margin>
+                            <Insets bottom="10.0"/>
+                        </VBox.margin>
+                    </HBox>
+                    <HBox alignment="BOTTOM_CENTER" prefHeight="52.0" prefWidth="200.0">
+                        <Button fx:id="backupButton" mnemonicParsing="false" onAction="#onBackupButtonCLick"
+                                text="Back Up">
+                            <HBox.margin>
+                                <Insets right="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="restoreButton" disable="true" mnemonicParsing="false"
+                                onAction="#onRestoreButtonClick" text="Restore">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </AnchorPane>
+        </Tab>
+        <Tab text="People">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <HBox prefHeight="482.0" prefWidth="760.0">
+                    <VBox prefHeight="482.0" prefWidth="200.0" translateX="125.0">
+                        <ListView fx:id="peoplePersonListView" prefHeight="482.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </ListView>
+                    </VBox>
+                    <VBox prefHeight="482.0" prefWidth="300.0" translateX="125.0">
+                        <ImageView fx:id="peopleImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true"
+                                   preserveRatio="true" translateX="40.0">
+                            <VBox.margin>
+                                <Insets top="10.0"/>
+                            </VBox.margin>
+                            <Image url="@../../../img/missingPhoto.png"/>
+                        </ImageView>
+                        <GridPane prefHeight="185.0" prefWidth="287.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0"
+                                                   prefWidth="75.19998779296876"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.2" minWidth="10.0"
+                                                   prefWidth="225.60001220703126"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <VBox.margin>
+                                <Insets top="10.0"/>
+                            </VBox.margin>
+                            <Label text="First: " translateX="47.0" GridPane.rowIndex="1"/>
+                            <Label text="Last: " translateX="48.0" GridPane.rowIndex="2"/>
+                            <Label text="Email: " translateX="41.0" GridPane.rowIndex="3"/>
+                            <Label text="Phone: " translateX="35.0" GridPane.rowIndex="4"/>
+                            <Label text="Apt:" translateX="53.0" GridPane.rowIndex="5"/>
+                            <TextField fx:id="peopleFirstTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <TextField fx:id="peopleLastTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <TextField fx:id="peopleEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <TextField fx:id="peoplePhoneTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <TextField fx:id="peopleAptTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <Label text="Image Name: " translateX="1.0"/>
+                            <TextField fx:id="peopleImageNameTextField" GridPane.columnIndex="1">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                        </GridPane>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                            <buttons>
+                                <Button fx:id="peopleNewPersonButton" mnemonicParsing="false"
+                                        onAction="#peopleNewPersonAction" text="New" translateX="-35.0"/>
+                                <Button fx:id="peopleUpdatePersonButton" layoutX="222.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#peopleUpdatePersonAction" text="Update"
+                                        translateX="-22.0"/>
+                                <Button fx:id="peopleDeletePersonButton" layoutX="222.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#peopleDeletePersonAction" text="Delete"
+                                        translateX="-10.0"/>
+                            </buttons>
+                        </ButtonBar>
+                    </VBox>
+                </HBox>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Terms">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <HBox layoutX="8.0" layoutY="6.0" prefHeight="475.0" prefWidth="754.0">
+                    <VBox prefHeight="475.0" prefWidth="371.0">
+                        <Label text="Incumbent" textAlignment="CENTER" translateX="135.0" translateY="100.0">
+                            <font>
+                                <Font size="20.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="termsPersonLabel" text="None Selected" translateX="100.0" translateY="140.0">
+                            <font>
+                                <Font size="25.0"/>
+                            </font>
+                        </Label>
+                    </VBox>
+                    <VBox prefHeight="483.0" prefWidth="386.0">
+                        <Label text="Terms of Office">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <ListView fx:id="termsPtoListView" prefHeight="90.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </ListView>
+                        <Label text="Bodies">
+                            <padding>
+                                <Insets left="10.0" right="10.0"/>
+                            </padding>
+                        </Label>
+                        <ListView fx:id="termsBodiesListView" prefHeight="90.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </ListView>
+                        <Label text="Offices">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <ListView fx:id="termsOfficesListView" prefHeight="90.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0"/>
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="10.0"/>
+                            </padding>
+                        </ListView>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.79998779296875" minWidth="10.0"
+                                                   prefWidth="72.800048828125"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="318.39998626708984" minWidth="10.0"
+                                                   prefWidth="311.999951171875"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <Label text="Term End:" translateX="9.0" GridPane.rowIndex="1">
+                                <GridPane.margin>
+                                    <Insets left="10.0"/>
+                                </GridPane.margin>
+                            </Label>
+                            <TextField fx:id="termsTermStartTextField" GridPane.columnIndex="1">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <TextField fx:id="termsTermEndTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                            <Label text="Term Start:" translateX="4.0">
+                                <GridPane.margin>
+                                    <Insets left="10.0"/>
+                                </GridPane.margin>
+                            </Label>
+                            <Label text="Ordinal:" translateX="31.0" GridPane.rowIndex="2"/>
+                            <TextField fx:id="termsTermOrdinalTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <GridPane.margin>
+                                    <Insets right="10.0"/>
+                                </GridPane.margin>
+                            </TextField>
+                        </GridPane>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                            <buttons>
+                                <Button fx:id="termsTermNewButton" mnemonicParsing="false"
+                                        onAction="#termsTermNewAction" text="New" translateX="-80.0"/>
+                                <Button fx:id="termsTermUpdateButton" layoutX="319.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#termsTermUpdateAction" text="Update"
+                                        translateX="-55.0"/>
+                                <Button fx:id="termsTermDeleteButton" layoutX="234.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#termsTermDeleteAction" text="Delete"
+                                        translateX="-30.0"/>
+                            </buttons>
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </ButtonBar>
+                    </VBox>
+                </HBox>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Offices">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <HBox prefHeight="482.0" prefWidth="760.0">
+                    <VBox prefHeight="482.0" prefWidth="254.0">
+                        <Label text="Body (Precedence)" translateX="45.0" translateY="5.0"/>
+                        <ListView fx:id="officesBodyListView" prefHeight="465.0" prefWidth="254.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </ListView>
+                    </VBox>
+                    <VBox prefHeight="482.0" prefWidth="253.0">
+                        <ImageView fx:id="officesBodyImageView" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true"
+                                   preserveRatio="true" translateX="70.0">
+                            <Image url="@../../../img/missingImage.jpg"/>
+                            <VBox.margin>
+                                <Insets top="10.0"/>
+                            </VBox.margin>
+                        </ImageView>
+                        <Label text="Image File">
+                            <VBox.margin>
+                                <Insets left="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="officesBodyImageFileTextField">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <Label layoutX="20.0" layoutY="195.0" text="Body">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="officesBodyNameTextField" layoutX="20.0" layoutY="212.0">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <Label text="Precedence">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="officesBodyPrecedenceTextField">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <Label text="Mission">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextArea fx:id="officesBodyMissionTextArea" prefHeight="130.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </TextArea>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                            <buttons>
+                                <Button fx:id="officesNewBodyButton" mnemonicParsing="false"
+                                        onAction="#officesNewBodyAction" text="New" translateX="-20.0"/>
+                                <Button fx:id="officesUpdateBodyButton" layoutX="168.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#officesUpdateBodyAction" text="Update"
+                                        translateX="-10.0"/>
+                                <Button fx:id="officesDeleteBodyButton" layoutX="168.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#officesDeleteBodyAction" text="Delete"/>
+                            </buttons>
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </ButtonBar>
+                    </VBox>
+                    <VBox prefHeight="482.0" prefWidth="253.0">
+                        <Label text="Office (Precedence)" translateX="80.0" translateY="5.0"/>
+                        <ListView fx:id="officesOfficeListView" prefHeight="200.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </ListView>
+                        <Label text="Title">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="officesOfficeTitleTextField">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <Label text="Precedence">
+                            <VBox.margin>
+                                <Insets left="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="officesOfficePrecedenceTextField">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                            <buttons>
+                                <Button fx:id="officesNewOfficeButton" mnemonicParsing="false"
+                                        onAction="#officesNewOfficeAction" text="New" translateX="-20.0"/>
+                                <Button fx:id="officesUpdateOfficeButton" layoutX="172.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#officesUpdateOfficeAction" text="Update"
+                                        translateX="-10.0"/>
+                                <Button fx:id="officesDeleteOfficeButton" layoutX="172.0" layoutY="18.0"
+                                        mnemonicParsing="false" onAction="#officesDeleteOfficeAction" text="Delete"/>
+                            </buttons>
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </VBox.margin>
+                        </ButtonBar>
+                    </VBox>
+                </HBox>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
+</VBox>

@@ -1,0 +1,34 @@
+**/raj_backup.sql
+mailingList.txt
+src/main/resources/scripts/raj_setup.sql
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### TeX ###
+*.aux
+*.log
+*.pdf
+*.tex
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+.idea/libraries
+*.iws
+*.iml
+*.ipr
+
+*.docx
+
+/.idea/
