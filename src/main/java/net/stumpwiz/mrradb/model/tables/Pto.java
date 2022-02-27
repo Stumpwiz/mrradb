@@ -187,8 +187,7 @@ public class Pto extends TableImpl<PtoRecord>
     }
 
     @Override
-    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String
-            , Double, Long, Long, String, Double> fieldsRow()
+    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String, Double, Long, Long, String, Double> fieldsRow()
     {
         return (Row18) super.fieldsRow();
     }

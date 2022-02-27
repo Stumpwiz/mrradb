@@ -8,8 +8,7 @@ Association and with management, with respect to matters related to our mutual i
 
 This project maintains a [MySQL](https://www.mysql.com/) database to support the Residents Association's committee
 structure.
-
-![Graphical user interface, application Description automatically generated](C:/Users/Geo/Git/mrradb/media/image1.png)
+![Entity Relationship Diagram](./src/main/resources/img/erd.png "ERD")
 {width="6.5in"
 height="1.9145833333333333in"}
 
@@ -18,8 +17,7 @@ relationship between offices and administrative bodies, as shown in the entity-r
 database is via a
 [JavaFX](https://openjfx.io/) application.
 
-![Graphical user interface, application Description automatically generated](C:/Users/Geo/Git/mrradb/media/image2.png)
-{width="4.9875in"
+![JavaFX User Interface ](./src/main/resources/img/homeScreen.png "User Interface"){width="4.9875in"
 height="3.6020833333333333in"}
 
 The JavaFX application connects to the database via

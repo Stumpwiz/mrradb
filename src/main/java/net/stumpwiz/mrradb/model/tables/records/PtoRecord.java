@@ -843,8 +843,9 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
     }
 
     /**
-     * Setter for <code>raj.pto.bodyprecedence</code>. Field for ordering in reports and web pages.  Stored as double to
-     * allow insertions of new bodies.
+     * Setter for <code>raj.pto.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
      */
     public void setBodyprecedence(Double value)
     {

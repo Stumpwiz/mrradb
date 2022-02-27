@@ -557,6 +557,7 @@ public class DbController implements Initializable
 
     public void peopleUpdatePersonAction()
     {
+        //TODO selectedPerson is sometimes null!?!?
         try
         {
             BigInteger workingId = new BigInteger(selectedPerson.getPersonid().toString());
