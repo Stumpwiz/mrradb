@@ -45,6 +45,8 @@ Developed during the period 2020--2022. First posted to GitHub on 2022-01-10.
 
 Written by [George Wright](mailto:geo@loyola.edu), with help from
 
+- [Tayo Koleoso](https://www.oreilly.com/library/view/beginning-jooq-learn/9781484274316/),
+
 - [Eugen (Baeldung)](https://twitter.com/baeldung),
 
 - [Lukas Eder](https://www.crunchbase.com/person/lukas-eder),
