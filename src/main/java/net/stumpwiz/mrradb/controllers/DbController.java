@@ -658,48 +658,60 @@ public class DbController implements Initializable
 
     public void termsTermUpdateAction()
     {
-        PtoRecord termToUpdate = termsPtoListView.getSelectionModel().getSelectedItem();
-        if (termToUpdate == null)
+        try
         {
-            throw new RuntimeException("No term of office selected to update.");
-        }
-        LocalDate newTermStart = LocalDate.parse(termsTermStartTextField.getText());
-        LocalDate newTermEnd = LocalDate.parse(termsTermEndTextField.getText());
-        if (!isValidStartEnd(newTermStart, newTermEnd))
+            PtoRecord termToUpdate = termsPtoListView.getSelectionModel().getSelectedItem();
+            if (termToUpdate == null)
+            {
+                throw new RuntimeException("No term of office selected to update.");
+            }
+            LocalDate newTermStart = LocalDate.parse(termsTermStartTextField.getText());
+            LocalDate newTermEnd = LocalDate.parse(termsTermEndTextField.getText());
+            if (!isValidStartEnd(newTermStart, newTermEnd))
+            {
+                throw new RuntimeException("Start and end must be non-null, start before end.");
+            }
+            String newTermOrdinal = termsTermOrdinalTextField.getText();
+            if (!isValidOrdinal(newTermOrdinal))
+            {
+                throw new RuntimeException("Ordinal must be \"First,\" \"Second,\" or \"None.\"");
+            }
+            create.update(termTable)
+                    .set(termStart, newTermStart)
+                    .set(termEnd, newTermEnd)
+                    .set(termOrdinal, newTermOrdinal)
+                    .where(termOfficeId.eq(new BigInteger(termToUpdate.getTermofficeid().toString())))
+                    .and(termPersonId.eq(new BigInteger(termToUpdate.getPersonid().toString()))).execute();
+            termsPtoListObs.remove(termToUpdate);
+            termToUpdate.set(termStart, newTermStart);
+            termToUpdate.set(termEnd, newTermEnd);
+            termToUpdate.set(termOrdinal, newTermOrdinal);
+            termsPtoListObs.add(termToUpdate);
+            termsPtoListView.getSelectionModel().select(termToUpdate);
+        } catch (RuntimeException e)
         {
-            throw new RuntimeException("Start and end must be non-null, start before end.");
+            errorAlert(e.getMessage());
         }
-        String newTermOrdinal = termsTermOrdinalTextField.getText();
-        if (!isValidOrdinal(newTermOrdinal))
-        {
-            throw new RuntimeException("Ordinal must be \"First,\" \"Second,\" or \"None.\"");
-        }
-        create.update(termTable)
-                .set(termStart, newTermStart)
-                .set(termEnd, newTermEnd)
-                .set(termOrdinal, newTermOrdinal)
-                .where(termOfficeId.eq(new BigInteger(termToUpdate.getTermofficeid().toString())))
-                .and(termPersonId.eq(new BigInteger(termToUpdate.getPersonid().toString()))).execute();
-        termsPtoListObs.remove(termToUpdate);
-        termToUpdate.set(termStart, newTermStart);
-        termToUpdate.set(termEnd, newTermEnd);
-        termToUpdate.set(termOrdinal, newTermOrdinal);
-        termsPtoListObs.add(termToUpdate);
-        termsPtoListView.getSelectionModel().select(termToUpdate);
     }
 
     public void termsTermDeleteAction()
     {
-        PtoRecord termToDelete = termsPtoListView.getSelectionModel().getSelectedItem();
-        if (termToDelete == null)
+        try
         {
-            throw new RuntimeException("No term of office selected to delete.");
+            PtoRecord termToDelete = termsPtoListView.getSelectionModel().getSelectedItem();
+            if (termToDelete == null)
+            {
+                throw new RuntimeException("No term of office selected to delete.");
+            }
+            BigInteger deleteTermPersonId = new BigInteger(String.valueOf(termToDelete.getTermpersonid()));
+            BigInteger deleteTermOfficeId = new BigInteger(String.valueOf(termToDelete.getTermofficeid()));
+            create.deleteFrom(termTable).where(termPersonId.eq(deleteTermPersonId)
+                    .and(termOfficeId.eq(deleteTermOfficeId))).execute();
+            termsPtoListObs.remove(termToDelete);
+        } catch (RuntimeException e)
+        {
+            errorAlert(e.getMessage());
         }
-        BigInteger deleteTermPersonId = new BigInteger(String.valueOf(termToDelete.getTermpersonid()));
-        BigInteger deleteTermOfficeId = new BigInteger(String.valueOf(termToDelete.getTermofficeid()));
-        create.deleteFrom(termTable).where(termPersonId.eq(deleteTermPersonId)
-                .and(termOfficeId.eq(deleteTermOfficeId))).execute();
-        termsPtoListObs.remove(termToDelete);
     }
 
     public void officesNewBodyAction()

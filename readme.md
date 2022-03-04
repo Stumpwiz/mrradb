@@ -1,5 +1,5 @@
 ---
-title: Mercy Ridge Residents Association Database Management
+Mercy Ridge Residents Association Database Management
 ---
 
 [Mercy Ridge](https://mercyridge.com/) is a retirement community in Timonium, Maryland. Its residents have formed
