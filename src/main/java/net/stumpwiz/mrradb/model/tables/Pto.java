@@ -13,6 +13,7 @@ import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 import java.time.LocalDate;
+import java.util.function.Function;
 
 
 /**
@@ -32,18 +33,15 @@ public class Pto extends TableImpl<PtoRecord>
     /**
      * The column <code>raj.pto.personid</code>.
      */
-    public final TableField<PtoRecord, Long> PERSONID = createField(DSL.name("personid"),
-            SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
+    public final TableField<PtoRecord, Long> PERSONID = createField(DSL.name("personid"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
     /**
      * The column <code>raj.pto.first</code>.
      */
-    public final TableField<PtoRecord, String> FIRST =
-            createField(DSL.name("first"), SQLDataType.VARCHAR(15), this, "");
+    public final TableField<PtoRecord, String> FIRST = createField(DSL.name("first"), SQLDataType.VARCHAR(15), this, "");
     /**
      * The column <code>raj.pto.email</code>.
      */
-    public final TableField<PtoRecord, String> EMAIL =
-            createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
+    public final TableField<PtoRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
 
     /**
      * The column <code>raj.pto.last</code>.
@@ -52,13 +50,11 @@ public class Pto extends TableImpl<PtoRecord>
     /**
      * The column <code>raj.pto.phone</code>.
      */
-    public final TableField<PtoRecord, String> PHONE =
-            createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
+    public final TableField<PtoRecord, String> PHONE = createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
     /**
      * The column <code>raj.pto.start</code>.
      */
-    public final TableField<PtoRecord, LocalDate> START =
-            createField(DSL.name("start"), SQLDataType.LOCALDATE, this, "");
+    public final TableField<PtoRecord, LocalDate> START = createField(DSL.name("start"), SQLDataType.LOCALDATE, this, "");
 
     /**
      * The column <code>raj.pto.apt</code>.
@@ -67,8 +63,7 @@ public class Pto extends TableImpl<PtoRecord>
     /**
      * The column <code>raj.pto.ordinal</code>.
      */
-    public final TableField<PtoRecord, String> ORDINAL =
-            createField(DSL.name("ordinal"), SQLDataType.CHAR(7), this, "");
+    public final TableField<PtoRecord, String> ORDINAL = createField(DSL.name("ordinal"), SQLDataType.CHAR(7), this, "");
 
     /**
      * The column <code>raj.pto.end</code>.
@@ -77,59 +72,41 @@ public class Pto extends TableImpl<PtoRecord>
     /**
      * The column <code>raj.pto.termpersonid</code>.
      */
-    public final TableField<PtoRecord, Long> TERMPERSONID =
-            createField(DSL.name("termpersonid"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<PtoRecord, Long> TERMPERSONID = createField(DSL.name("termpersonid"), SQLDataType.BIGINT.nullable(false), this, "");
     /**
      * The column <code>raj.pto.termofficeid</code>.
      */
-    public final TableField<PtoRecord, Long> TERMOFFICEID =
-            createField(DSL.name("termofficeid"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<PtoRecord, Long> TERMOFFICEID = createField(DSL.name("termofficeid"), SQLDataType.BIGINT.nullable(false), this, "");
     /**
      * The column <code>raj.pto.officeid</code>.
      */
-    public final TableField<PtoRecord, Long> OFFICEID = createField(DSL.name("officeid"),
-            SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
+    public final TableField<PtoRecord, Long> OFFICEID = createField(DSL.name("officeid"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
     /**
      * The column <code>raj.pto.title</code>.
      */
-    public final TableField<PtoRecord, String> TITLE =
-            createField(DSL.name("title"), SQLDataType.VARCHAR(45), this, "");
+    public final TableField<PtoRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(45), this, "");
     /**
      * The column <code>raj.pto.officeprecedence</code>.
      */
-    public final TableField<PtoRecord, Double> OFFICEPRECEDENCE =
-            createField(DSL.name("officeprecedence"), SQLDataType.DOUBLE, this, "");
+    public final TableField<PtoRecord, Double> OFFICEPRECEDENCE = createField(DSL.name("officeprecedence"), SQLDataType.DOUBLE, this, "");
     /**
      * The column <code>raj.pto.officebodyid</code>.
      */
-    public final TableField<PtoRecord, Long> OFFICEBODYID =
-            createField(DSL.name("officebodyid"), SQLDataType.BIGINT, this, "");
+    public final TableField<PtoRecord, Long> OFFICEBODYID = createField(DSL.name("officebodyid"), SQLDataType.BIGINT, this, "");
     /**
      * The column <code>raj.pto.bodyid</code>.
      */
-    public final TableField<PtoRecord, Long> BODYID = createField(DSL.name("bodyid"),
-            SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
+    public final TableField<PtoRecord, Long> BODYID = createField(DSL.name("bodyid"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
     /**
      * The column <code>raj.pto.name</code>.
      */
-    public final TableField<PtoRecord, String> NAME =
-            createField(DSL.name("name"), SQLDataType.VARCHAR(45).nullable(false), this, "");
+    public final TableField<PtoRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(45).nullable(false), this, "");
     /**
-     * The column <code>raj.pto.bodyprecedence</code>. Field for ordering in reports and web pages.  Stored as double to
-     * allow insertions of new bodies.
+     * The column <code>raj.pto.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
      */
-    public final TableField<PtoRecord, Double> BODYPRECEDENCE =
-            createField(DSL.name("bodyprecedence"), SQLDataType.DOUBLE.nullable(false), this,
-                    "Field for ordering in reports and web pages.  Stored as double to allow insertions of new bodies" +
-                            ".");
-
-    /**
-     * Create an aliased <code>raj.pto</code> table reference
-     */
-    public Pto(String alias)
-    {
-        this(DSL.name(alias), PTO);
-    }
+    public final TableField<PtoRecord, Double> BODYPRECEDENCE = createField(DSL.name("bodyprecedence"), SQLDataType.DOUBLE.nullable(false), this, "Field for ordering in reports and web pages.  Stored as double to allow insertions of new bodies.");
 
     private Pto(Name alias, Table<PtoRecord> aliased)
     {
@@ -138,19 +115,15 @@ public class Pto extends TableImpl<PtoRecord>
 
     private Pto(Name alias, Table<PtoRecord> aliased, Field<?>[] parameters)
     {
-        super(alias, null, aliased, parameters, DSL.comment("VIEW"), TableOptions.view(
-                "create view `pto` as select `raj`.`person`.`personid` AS `personid`,`raj`.`person`.`first` AS " +
-                        "`first`,`raj`.`person`.`last` AS `last`,`raj`.`person`.`email` AS `email`,`raj`.`person`" +
-                        ".`phone` AS `phone`,`raj`.`person`.`apt` AS `apt`,`raj`.`term`.`start` AS `start`,`raj`" +
-                        ".`term`.`end` AS `end`,`raj`.`term`.`ordinal` AS `ordinal`,`raj`.`term`.`termpersonid` AS " +
-                        "`termpersonid`,`raj`.`term`.`termofficeid` AS `termofficeid`,`raj`.`office`.`officeid` AS " +
-                        "`officeid`,`raj`.`office`.`title` AS `title`,`raj`.`office`.`officeprecedence` AS " +
-                        "`officeprecedence`,`raj`.`office`.`officebodyid` AS `officebodyid`,`raj`.`body`.`bodyid` AS " +
-                        "`bodyid`,`raj`.`body`.`name` AS `name`,`raj`.`body`.`bodyprecedence` AS `bodyprecedence` " +
-                        "from (((`raj`.`term` join `raj`.`office`) join `raj`.`body`) join `raj`.`person`) where (" +
-                        "(`raj`.`office`.`officeid` = `raj`.`term`.`termofficeid`) and (`raj`.`body`.`bodyid` = `raj`" +
-                        ".`office`.`officebodyid`) and (`raj`.`person`.`personid` = `raj`.`term`.`termpersonid`)) " +
-                        "order by `raj`.`body`.`bodyprecedence`"));
+        super(alias, null, aliased, parameters, DSL.comment("VIEW"), TableOptions.view("create view `pto` as select `raj`.`person`.`personid` AS `personid`,`raj`.`person`.`first` AS `first`,`raj`.`person`.`last` AS `last`,`raj`.`person`.`email` AS `email`,`raj`.`person`.`phone` AS `phone`,`raj`.`person`.`apt` AS `apt`,`raj`.`term`.`start` AS `start`,`raj`.`term`.`end` AS `end`,`raj`.`term`.`ordinal` AS `ordinal`,`raj`.`term`.`termpersonid` AS `termpersonid`,`raj`.`term`.`termofficeid` AS `termofficeid`,`raj`.`office`.`officeid` AS `officeid`,`raj`.`office`.`title` AS `title`,`raj`.`office`.`officeprecedence` AS `officeprecedence`,`raj`.`office`.`officebodyid` AS `officebodyid`,`raj`.`body`.`bodyid` AS `bodyid`,`raj`.`body`.`name` AS `name`,`raj`.`body`.`bodyprecedence` AS `bodyprecedence` from (((`raj`.`term` join `raj`.`office`) join `raj`.`body`) join `raj`.`person`) where ((`raj`.`office`.`officeid` = `raj`.`term`.`termofficeid`) and (`raj`.`body`.`bodyid` = `raj`.`office`.`officebodyid`) and (`raj`.`person`.`personid` = `raj`.`term`.`termpersonid`)) order by `raj`.`body`.`bodyprecedence`"));
+    }
+
+    /**
+     * Create an aliased <code>raj.pto</code> table reference
+     */
+    public Pto(String alias)
+    {
+        this(DSL.name(alias), PTO);
     }
 
     /**
@@ -174,10 +147,13 @@ public class Pto extends TableImpl<PtoRecord>
         super(child, key, PTO);
     }
 
+    /**
+     * The class holding records for this type
+     */
     @Override
-    public Pto as(String alias)
+    public Class<PtoRecord> getRecordType()
     {
-        return new Pto(DSL.name(alias), this);
+        return PtoRecord.class;
     }
 
     @Override
@@ -187,15 +163,21 @@ public class Pto extends TableImpl<PtoRecord>
     }
 
     @Override
-    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String, Double, Long, Long, String, Double> fieldsRow()
+    public Pto as(String alias)
     {
-        return (Row18) super.fieldsRow();
+        return new Pto(DSL.name(alias), this);
     }
 
     @Override
     public Pto as(Name alias)
     {
         return new Pto(alias, this);
+    }
+
+    @Override
+    public Pto as(Table<?> alias)
+    {
+        return new Pto(alias.getQualifiedName(), this);
     }
 
     /**
@@ -216,16 +198,39 @@ public class Pto extends TableImpl<PtoRecord>
         return new Pto(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Pto rename(Table<?> name)
+    {
+        return new Pto(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row18 type methods
     // -------------------------------------------------------------------------
 
-    /**
-     * The class holding records for this type
-     */
     @Override
-    public Class<PtoRecord> getRecordType()
+    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String, Double, Long, Long, String, Double> fieldsRow()
     {
-        return PtoRecord.class;
+        return (Row18) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function18<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super LocalDate, ? super LocalDate, ? super String, ? super Long, ? super Long, ? super Long, ? super String, ? super Double, ? super Long, ? super Long, ? super String, ? super Double, ? extends U> from)
+    {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function18<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super LocalDate, ? super LocalDate, ? super String, ? super Long, ? super Long, ? super Long, ? super String, ? super Double, ? super Long, ? super Long, ? super String, ? super Double, ? extends U> from)
+    {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

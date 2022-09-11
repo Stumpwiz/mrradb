@@ -43,6 +43,100 @@ public class BodyRecord extends UpdatableRecordImpl<BodyRecord> implements Recor
         setBodyprecedence(bodyprecedence);
     }
 
+    /**
+     * Getter for <code>raj.body.bodyid</code>.
+     */
+    public Long getBodyid()
+    {
+        return (Long) get(0);
+    }
+
+    /**
+     * Setter for <code>raj.body.bodyid</code>.
+     */
+    public void setBodyid(Long value)
+    {
+        set(0, value);
+    }
+
+    /**
+     * Getter for <code>raj.body.bodyimage</code>. Name of the graphic file that
+     * represents the body in reports and web pages.
+     */
+    public String getBodyimage()
+    {
+        return (String) get(1);
+    }
+
+    /**
+     * Setter for <code>raj.body.bodyimage</code>. Name of the graphic file that
+     * represents the body in reports and web pages.
+     */
+    public void setBodyimage(String value)
+    {
+        set(1, value);
+    }
+
+    /**
+     * Getter for <code>raj.body.name</code>.
+     */
+    public String getName()
+    {
+        return (String) get(2);
+    }
+
+    /**
+     * Setter for <code>raj.body.name</code>.
+     */
+    public void setName(String value)
+    {
+        set(2, value);
+    }
+
+    /**
+     * Getter for <code>raj.body.mission</code>.
+     */
+    public String getMission()
+    {
+        return (String) get(3);
+    }
+
+    /**
+     * Setter for <code>raj.body.mission</code>.
+     */
+    public void setMission(String value)
+    {
+        set(3, value);
+    }
+
+    // -------------------------------------------------------------------------
+    // Primary key information
+    // -------------------------------------------------------------------------
+
+    /**
+     * Getter for <code>raj.body.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
+     */
+    public Double getBodyprecedence()
+    {
+        return (Double) get(4);
+    }
+
+    // -------------------------------------------------------------------------
+    // Record5 type implementation
+    // -------------------------------------------------------------------------
+
+    /**
+     * Setter for <code>raj.body.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
+     */
+    public void setBodyprecedence(Double value)
+    {
+        set(4, value);
+    }
+
     @Override
     public Record1<Long> key()
     {
@@ -91,19 +185,41 @@ public class BodyRecord extends UpdatableRecordImpl<BodyRecord> implements Recor
         return Body.BODY.BODYPRECEDENCE;
     }
 
-    // -------------------------------------------------------------------------
-    // Primary key information
-    // -------------------------------------------------------------------------
+    @Override
+    public Long component1()
+    {
+        return getBodyid();
+    }
+
+    @Override
+    public String component2()
+    {
+        return getBodyimage();
+    }
+
+    @Override
+    public String component3()
+    {
+        return getName();
+    }
+
+    @Override
+    public String component4()
+    {
+        return getMission();
+    }
+
+    @Override
+    public Double component5()
+    {
+        return getBodyprecedence();
+    }
 
     @Override
     public Long value1()
     {
         return getBodyid();
     }
-
-    // -------------------------------------------------------------------------
-    // Record5 type implementation
-    // -------------------------------------------------------------------------
 
     @Override
     public String value2()
@@ -157,6 +273,10 @@ public class BodyRecord extends UpdatableRecordImpl<BodyRecord> implements Recor
         return this;
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     public BodyRecord value5(Double value)
     {
@@ -173,124 +293,5 @@ public class BodyRecord extends UpdatableRecordImpl<BodyRecord> implements Recor
         value4(value4);
         value5(value5);
         return this;
-    }
-
-    @Override
-    public Long component1()
-    {
-        return getBodyid();
-    }
-
-    /**
-     * Getter for <code>raj.body.bodyid</code>.
-     */
-    public Long getBodyid()
-    {
-        return (Long) get(0);
-    }
-
-    /**
-     * Setter for <code>raj.body.bodyid</code>.
-     */
-    public void setBodyid(Long value)
-    {
-        set(0, value);
-    }
-
-    @Override
-    public String component2()
-    {
-        return getBodyimage();
-    }
-
-    /**
-     * Getter for <code>raj.body.bodyimage</code>. Name of the graphic file that represents the body in reports and web
-     * pages.
-     */
-    public String getBodyimage()
-    {
-        return (String) get(1);
-    }
-
-    /**
-     * Setter for <code>raj.body.bodyimage</code>. Name of the graphic file that represents the body in reports and web
-     * pages.
-     */
-    public void setBodyimage(String value)
-    {
-        set(1, value);
-    }
-
-    @Override
-    public String component3()
-    {
-        return getName();
-    }
-
-    /**
-     * Getter for <code>raj.body.name</code>.
-     */
-    public String getName()
-    {
-        return (String) get(2);
-    }
-
-    /**
-     * Setter for <code>raj.body.name</code>.
-     */
-    public void setName(String value)
-    {
-        set(2, value);
-    }
-
-    @Override
-    public String component4()
-    {
-        return getMission();
-    }
-
-    /**
-     * Getter for <code>raj.body.mission</code>.
-     */
-    public String getMission()
-    {
-        return (String) get(3);
-    }
-
-    /**
-     * Setter for <code>raj.body.mission</code>.
-     */
-    public void setMission(String value)
-    {
-        set(3, value);
-    }
-
-    @Override
-    public Double component5()
-    {
-        return getBodyprecedence();
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Getter for <code>raj.body.bodyprecedence</code>. Field for ordering in reports and web pages.  Stored as double
-     * to allow insertions of new bodies.
-     */
-    public Double getBodyprecedence()
-    {
-        return (Double) get(4);
-    }
-
-    /**
-     * Setter for <code>raj.body.bodyprecedence</code>. Field for ordering in
-     * reports and web pages.  Stored as double to allow insertions of new
-     * bodies.
-     */
-    public void setBodyprecedence(Double value)
-    {
-        set(4, value);
     }
 }

@@ -13,6 +13,8 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
+import java.util.function.Function;
+
 
 /**
  * An organizational unit at Mercy Ridge.
@@ -31,41 +33,26 @@ public class Body extends TableImpl<BodyRecord>
     /**
      * The column <code>raj.body.bodyid</code>.
      */
-    public final TableField<BodyRecord, Long> BODYID =
-            createField(DSL.name("bodyid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<BodyRecord, Long> BODYID = createField(DSL.name("bodyid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
     /**
-     * The column <code>raj.body.bodyimage</code>. Name of the graphic file that represents the body in reports and web
-     * pages.
+     * The column <code>raj.body.bodyimage</code>. Name of the graphic file that
+     * represents the body in reports and web pages.
      */
-    public final TableField<BodyRecord, String> BODYIMAGE =
-            createField(DSL.name("bodyimage"), SQLDataType.VARCHAR(45), this,
-                    "Name of the graphic file that represents the body in reports and web pages.");
+    public final TableField<BodyRecord, String> BODYIMAGE = createField(DSL.name("bodyimage"), SQLDataType.VARCHAR(45), this, "Name of the graphic file that represents the body in reports and web pages.");
     /**
      * The column <code>raj.body.name</code>.
      */
-    public final TableField<BodyRecord, String> NAME =
-            createField(DSL.name("name"), SQLDataType.VARCHAR(45).nullable(false), this, "");
+    public final TableField<BodyRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(45).nullable(false), this, "");
     /**
      * The column <code>raj.body.mission</code>.
      */
-    public final TableField<BodyRecord, String> MISSION =
-            createField(DSL.name("mission"), SQLDataType.VARCHAR(512), this, "");
+    public final TableField<BodyRecord, String> MISSION = createField(DSL.name("mission"), SQLDataType.VARCHAR(512), this, "");
     /**
-     * The column <code>raj.body.bodyprecedence</code>. Field for ordering in reports and web pages.  Stored as double
-     * to allow insertions of new bodies.
+     * The column <code>raj.body.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
      */
-    public final TableField<BodyRecord, Double> BODYPRECEDENCE =
-            createField(DSL.name("bodyprecedence"), SQLDataType.DOUBLE.nullable(false), this,
-                    "Field for ordering in reports and web pages.  Stored as double to allow insertions of new bodies" +
-                            ".");
-
-    /**
-     * Create an aliased <code>raj.body</code> table reference
-     */
-    public Body(String alias)
-    {
-        this(DSL.name(alias), BODY);
-    }
+    public final TableField<BodyRecord, Double> BODYPRECEDENCE = createField(DSL.name("bodyprecedence"), SQLDataType.DOUBLE.nullable(false), this, "Field for ordering in reports and web pages.  Stored as double to allow insertions of new bodies.");
 
     private Body(Name alias, Table<BodyRecord> aliased)
     {
@@ -74,8 +61,15 @@ public class Body extends TableImpl<BodyRecord>
 
     private Body(Name alias, Table<BodyRecord> aliased, Field<?>[] parameters)
     {
-        super(alias, null, aliased, parameters, DSL.comment("An organizational unit at Mercy Ridge."),
-                TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("An organizational unit at Mercy Ridge."), TableOptions.table());
+    }
+
+    /**
+     * Create an aliased <code>raj.body</code> table reference
+     */
+    public Body(String alias)
+    {
+        this(DSL.name(alias), BODY);
     }
 
     /**
@@ -99,10 +93,13 @@ public class Body extends TableImpl<BodyRecord>
         super(child, key, BODY);
     }
 
+    /**
+     * The class holding records for this type
+     */
     @Override
-    public Body as(String alias)
+    public Class<BodyRecord> getRecordType()
     {
-        return new Body(DSL.name(alias), this);
+        return BodyRecord.class;
     }
 
     @Override
@@ -124,15 +121,21 @@ public class Body extends TableImpl<BodyRecord>
     }
 
     @Override
-    public Row5<Long, String, String, String, Double> fieldsRow()
+    public Body as(String alias)
     {
-        return (Row5) super.fieldsRow();
+        return new Body(DSL.name(alias), this);
     }
 
     @Override
     public Body as(Name alias)
     {
         return new Body(alias, this);
+    }
+
+    @Override
+    public Body as(Table<?> alias)
+    {
+        return new Body(alias.getQualifiedName(), this);
     }
 
     /**
@@ -153,16 +156,39 @@ public class Body extends TableImpl<BodyRecord>
         return new Body(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Body rename(Table<?> name)
+    {
+        return new Body(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
 
-    /**
-     * The class holding records for this type
-     */
     @Override
-    public Class<BodyRecord> getRecordType()
+    public Row5<Long, String, String, String, Double> fieldsRow()
     {
-        return BodyRecord.class;
+        return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super Long, ? super String, ? super String, ? super String, ? super Double, ? extends U> from)
+    {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super Long, ? super String, ? super String, ? super String, ? super Double, ? extends U> from)
+    {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

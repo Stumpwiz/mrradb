@@ -38,7 +38,8 @@ public class Raj extends SchemaImpl
     public final Office OFFICE = Office.OFFICE;
 
     /**
-     * A resident, staff member, or any other individual serving in some office at Mercy Ridge.
+     * A resident, staff member, or any other individual serving in some office
+     * at Mercy Ridge.
      */
     public final Person PERSON = Person.PERSON;
 

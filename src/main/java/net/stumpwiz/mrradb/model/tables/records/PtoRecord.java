@@ -17,9 +17,7 @@ import java.time.LocalDate;
  * VIEW
  */
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
-public class PtoRecord extends TableRecordImpl<PtoRecord> implements
-        Record18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String
-                , Double, Long, Long, String, Double>
+public class PtoRecord extends TableRecordImpl<PtoRecord> implements Record18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String, Double, Long, Long, String, Double>
 {
 
     private static final long serialVersionUID = 1L;
@@ -35,10 +33,7 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
     /**
      * Create a detached, initialised PtoRecord
      */
-    public PtoRecord(
-            Long personid, String first, String last, String email, String phone, String apt, LocalDate start,
-            LocalDate end, String ordinal, Long termpersonid, Long termofficeid, Long officeid, String title,
-            Double officeprecedence, Long officebodyid, Long bodyid, String name, Double bodyprecedence)
+    public PtoRecord(Long personid, String first, String last, String email, String phone, String apt, LocalDate start, LocalDate end, String ordinal, Long termpersonid, Long termofficeid, Long officeid, String title, Double officeprecedence, Long officebodyid, Long bodyid, String name, Double bodyprecedence)
     {
         super(Pto.PTO);
 
@@ -62,16 +57,310 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
         setBodyprecedence(bodyprecedence);
     }
 
+    /**
+     * Getter for <code>raj.pto.personid</code>.
+     */
+    public Long getPersonid()
+    {
+        return (Long) get(0);
+    }
+
+    /**
+     * Setter for <code>raj.pto.personid</code>.
+     */
+    public void setPersonid(Long value)
+    {
+        set(0, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.first</code>.
+     */
+    public String getFirst()
+    {
+        return (String) get(1);
+    }
+
+    /**
+     * Setter for <code>raj.pto.first</code>.
+     */
+    public void setFirst(String value)
+    {
+        set(1, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.last</code>.
+     */
+    public String getLast()
+    {
+        return (String) get(2);
+    }
+
+    /**
+     * Setter for <code>raj.pto.last</code>.
+     */
+    public void setLast(String value)
+    {
+        set(2, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.email</code>.
+     */
+    public String getEmail()
+    {
+        return (String) get(3);
+    }
+
+    /**
+     * Setter for <code>raj.pto.email</code>.
+     */
+    public void setEmail(String value)
+    {
+        set(3, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.phone</code>.
+     */
+    public String getPhone()
+    {
+        return (String) get(4);
+    }
+
+    /**
+     * Setter for <code>raj.pto.phone</code>.
+     */
+    public void setPhone(String value)
+    {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.apt</code>.
+     */
+    public String getApt()
+    {
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>raj.pto.apt</code>.
+     */
+    public void setApt(String value)
+    {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.start</code>.
+     */
+    public LocalDate getStart()
+    {
+        return (LocalDate) get(6);
+    }
+
+    /**
+     * Setter for <code>raj.pto.start</code>.
+     */
+    public void setStart(LocalDate value)
+    {
+        set(6, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.end</code>.
+     */
+    public LocalDate getEnd()
+    {
+        return (LocalDate) get(7);
+    }
+
+    /**
+     * Setter for <code>raj.pto.end</code>.
+     */
+    public void setEnd(LocalDate value)
+    {
+        set(7, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.ordinal</code>.
+     */
+    public String getOrdinal()
+    {
+        return (String) get(8);
+    }
+
+    /**
+     * Setter for <code>raj.pto.ordinal</code>.
+     */
+    public void setOrdinal(String value)
+    {
+        set(8, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.termpersonid</code>.
+     */
+    public Long getTermpersonid()
+    {
+        return (Long) get(9);
+    }
+
+    /**
+     * Setter for <code>raj.pto.termpersonid</code>.
+     */
+    public void setTermpersonid(Long value)
+    {
+        set(9, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.termofficeid</code>.
+     */
+    public Long getTermofficeid()
+    {
+        return (Long) get(10);
+    }
+
+    /**
+     * Setter for <code>raj.pto.termofficeid</code>.
+     */
+    public void setTermofficeid(Long value)
+    {
+        set(10, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.officeid</code>.
+     */
+    public Long getOfficeid()
+    {
+        return (Long) get(11);
+    }
+
+    /**
+     * Setter for <code>raj.pto.officeid</code>.
+     */
+    public void setOfficeid(Long value)
+    {
+        set(11, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.title</code>.
+     */
+    public String getTitle()
+    {
+        return (String) get(12);
+    }
+
+    /**
+     * Setter for <code>raj.pto.title</code>.
+     */
+    public void setTitle(String value)
+    {
+        set(12, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.officeprecedence</code>.
+     */
+    public Double getOfficeprecedence()
+    {
+        return (Double) get(13);
+    }
+
+    /**
+     * Setter for <code>raj.pto.officeprecedence</code>.
+     */
+    public void setOfficeprecedence(Double value)
+    {
+        set(13, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.officebodyid</code>.
+     */
+    public Long getOfficebodyid()
+    {
+        return (Long) get(14);
+    }
+
+    /**
+     * Setter for <code>raj.pto.officebodyid</code>.
+     */
+    public void setOfficebodyid(Long value)
+    {
+        set(14, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.bodyid</code>.
+     */
+    public Long getBodyid()
+    {
+        return (Long) get(15);
+    }
+
+    /**
+     * Setter for <code>raj.pto.bodyid</code>.
+     */
+    public void setBodyid(Long value)
+    {
+        set(15, value);
+    }
+
+    /**
+     * Getter for <code>raj.pto.name</code>.
+     */
+    public String getName()
+    {
+        return (String) get(16);
+    }
+
+    /**
+     * Setter for <code>raj.pto.name</code>.
+     */
+    public void setName(String value)
+    {
+        set(16, value);
+    }
+
+    // -------------------------------------------------------------------------
+    // Record18 type implementation
+    // -------------------------------------------------------------------------
+
+    /**
+     * Getter for <code>raj.pto.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
+     */
+    public Double getBodyprecedence()
+    {
+        return (Double) get(17);
+    }
+
+    /**
+     * Setter for <code>raj.pto.bodyprecedence</code>. Field for ordering in
+     * reports and web pages.  Stored as double to allow insertions of new
+     * bodies.
+     */
+    public void setBodyprecedence(Double value)
+    {
+        set(17, value);
+    }
+
     @Override
-    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String
-            , Double, Long, Long, String, Double> fieldsRow()
+    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String, Double, Long, Long, String, Double> fieldsRow()
     {
         return (Row18) super.fieldsRow();
     }
 
     @Override
-    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String
-            , Double, Long, Long, String, Double> valuesRow()
+    public Row18<Long, String, String, String, String, String, LocalDate, LocalDate, String, Long, Long, Long, String, Double, Long, Long, String, Double> valuesRow()
     {
         return (Row18) super.valuesRow();
     }
@@ -185,6 +474,114 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
     }
 
     @Override
+    public Long component1()
+    {
+        return getPersonid();
+    }
+
+    @Override
+    public String component2()
+    {
+        return getFirst();
+    }
+
+    @Override
+    public String component3()
+    {
+        return getLast();
+    }
+
+    @Override
+    public String component4()
+    {
+        return getEmail();
+    }
+
+    @Override
+    public String component5()
+    {
+        return getPhone();
+    }
+
+    @Override
+    public String component6()
+    {
+        return getApt();
+    }
+
+    @Override
+    public LocalDate component7()
+    {
+        return getStart();
+    }
+
+    @Override
+    public LocalDate component8()
+    {
+        return getEnd();
+    }
+
+    @Override
+    public String component9()
+    {
+        return getOrdinal();
+    }
+
+    @Override
+    public Long component10()
+    {
+        return getTermpersonid();
+    }
+
+    @Override
+    public Long component11()
+    {
+        return getTermofficeid();
+    }
+
+    @Override
+    public Long component12()
+    {
+        return getOfficeid();
+    }
+
+    @Override
+    public String component13()
+    {
+        return getTitle();
+    }
+
+    @Override
+    public Double component14()
+    {
+        return getOfficeprecedence();
+    }
+
+    @Override
+    public Long component15()
+    {
+        return getOfficebodyid();
+    }
+
+    @Override
+    public Long component16()
+    {
+        return getBodyid();
+    }
+
+    @Override
+    public String component17()
+    {
+        return getName();
+    }
+
+    @Override
+    public Double component18()
+    {
+        return getBodyprecedence();
+    }
+
+    @Override
     public Long value1()
     {
         return getPersonid();
@@ -267,10 +664,6 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
     {
         return getOfficeprecedence();
     }
-
-    // -------------------------------------------------------------------------
-    // Record18 type implementation
-    // -------------------------------------------------------------------------
 
     @Override
     public Long value15()
@@ -415,6 +808,10 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
         return this;
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     public PtoRecord value18(Double value)
     {
@@ -423,10 +820,7 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
     }
 
     @Override
-    public PtoRecord values(
-            Long value1, String value2, String value3, String value4, String value5, String value6, LocalDate value7,
-            LocalDate value8, String value9, Long value10, Long value11, Long value12, String value13, Double value14,
-            Long value15, Long value16, String value17, Double value18)
+    public PtoRecord values(Long value1, String value2, String value3, String value4, String value5, String value6, LocalDate value7, LocalDate value8, String value9, Long value10, Long value11, Long value12, String value13, Double value14, Long value15, Long value16, String value17, Double value18)
     {
         value1(value1);
         value2(value2);
@@ -447,408 +841,5 @@ public class PtoRecord extends TableRecordImpl<PtoRecord> implements
         value17(value17);
         value18(value18);
         return this;
-    }
-
-    @Override
-    public Long component1()
-    {
-        return getPersonid();
-    }
-
-    /**
-     * Getter for <code>raj.pto.personid</code>.
-     */
-    public Long getPersonid()
-    {
-        return (Long) get(0);
-    }
-
-    /**
-     * Setter for <code>raj.pto.personid</code>.
-     */
-    public void setPersonid(Long value)
-    {
-        set(0, value);
-    }
-
-    @Override
-    public String component2()
-    {
-        return getFirst();
-    }
-
-    /**
-     * Getter for <code>raj.pto.first</code>.
-     */
-    public String getFirst()
-    {
-        return (String) get(1);
-    }
-
-    /**
-     * Setter for <code>raj.pto.first</code>.
-     */
-    public void setFirst(String value)
-    {
-        set(1, value);
-    }
-
-    @Override
-    public String component3()
-    {
-        return getLast();
-    }
-
-    /**
-     * Getter for <code>raj.pto.last</code>.
-     */
-    public String getLast()
-    {
-        return (String) get(2);
-    }
-
-    /**
-     * Setter for <code>raj.pto.last</code>.
-     */
-    public void setLast(String value)
-    {
-        set(2, value);
-    }
-
-    @Override
-    public String component4()
-    {
-        return getEmail();
-    }
-
-    /**
-     * Getter for <code>raj.pto.email</code>.
-     */
-    public String getEmail()
-    {
-        return (String) get(3);
-    }
-
-    /**
-     * Setter for <code>raj.pto.email</code>.
-     */
-    public void setEmail(String value)
-    {
-        set(3, value);
-    }
-
-    @Override
-    public String component5()
-    {
-        return getPhone();
-    }
-
-    /**
-     * Getter for <code>raj.pto.phone</code>.
-     */
-    public String getPhone()
-    {
-        return (String) get(4);
-    }
-
-    /**
-     * Setter for <code>raj.pto.phone</code>.
-     */
-    public void setPhone(String value)
-    {
-        set(4, value);
-    }
-
-    @Override
-    public String component6()
-    {
-        return getApt();
-    }
-
-    /**
-     * Getter for <code>raj.pto.apt</code>.
-     */
-    public String getApt()
-    {
-        return (String) get(5);
-    }
-
-    /**
-     * Setter for <code>raj.pto.apt</code>.
-     */
-    public void setApt(String value)
-    {
-        set(5, value);
-    }
-
-    @Override
-    public LocalDate component7()
-    {
-        return getStart();
-    }
-
-    /**
-     * Getter for <code>raj.pto.start</code>.
-     */
-    public LocalDate getStart()
-    {
-        return (LocalDate) get(6);
-    }
-
-    /**
-     * Setter for <code>raj.pto.start</code>.
-     */
-    public void setStart(LocalDate value)
-    {
-        set(6, value);
-    }
-
-    @Override
-    public LocalDate component8()
-    {
-        return getEnd();
-    }
-
-    /**
-     * Getter for <code>raj.pto.end</code>.
-     */
-    public LocalDate getEnd()
-    {
-        return (LocalDate) get(7);
-    }
-
-    /**
-     * Setter for <code>raj.pto.end</code>.
-     */
-    public void setEnd(LocalDate value)
-    {
-        set(7, value);
-    }
-
-    @Override
-    public String component9()
-    {
-        return getOrdinal();
-    }
-
-    /**
-     * Getter for <code>raj.pto.ordinal</code>.
-     */
-    public String getOrdinal()
-    {
-        return (String) get(8);
-    }
-
-    /**
-     * Setter for <code>raj.pto.ordinal</code>.
-     */
-    public void setOrdinal(String value)
-    {
-        set(8, value);
-    }
-
-    @Override
-    public Long component10()
-    {
-        return getTermpersonid();
-    }
-
-    /**
-     * Getter for <code>raj.pto.termpersonid</code>.
-     */
-    public Long getTermpersonid()
-    {
-        return (Long) get(9);
-    }
-
-    /**
-     * Setter for <code>raj.pto.termpersonid</code>.
-     */
-    public void setTermpersonid(Long value)
-    {
-        set(9, value);
-    }
-
-    @Override
-    public Long component11()
-    {
-        return getTermofficeid();
-    }
-
-    /**
-     * Getter for <code>raj.pto.termofficeid</code>.
-     */
-    public Long getTermofficeid()
-    {
-        return (Long) get(10);
-    }
-
-    /**
-     * Setter for <code>raj.pto.termofficeid</code>.
-     */
-    public void setTermofficeid(Long value)
-    {
-        set(10, value);
-    }
-
-    @Override
-    public Long component12()
-    {
-        return getOfficeid();
-    }
-
-    /**
-     * Getter for <code>raj.pto.officeid</code>.
-     */
-    public Long getOfficeid()
-    {
-        return (Long) get(11);
-    }
-
-    /**
-     * Setter for <code>raj.pto.officeid</code>.
-     */
-    public void setOfficeid(Long value)
-    {
-        set(11, value);
-    }
-
-    @Override
-    public String component13()
-    {
-        return getTitle();
-    }
-
-    /**
-     * Getter for <code>raj.pto.title</code>.
-     */
-    public String getTitle()
-    {
-        return (String) get(12);
-    }
-
-    /**
-     * Setter for <code>raj.pto.title</code>.
-     */
-    public void setTitle(String value)
-    {
-        set(12, value);
-    }
-
-    @Override
-    public Double component14()
-    {
-        return getOfficeprecedence();
-    }
-
-    /**
-     * Getter for <code>raj.pto.officeprecedence</code>.
-     */
-    public Double getOfficeprecedence()
-    {
-        return (Double) get(13);
-    }
-
-    /**
-     * Setter for <code>raj.pto.officeprecedence</code>.
-     */
-    public void setOfficeprecedence(Double value)
-    {
-        set(13, value);
-    }
-
-    @Override
-    public Long component15()
-    {
-        return getOfficebodyid();
-    }
-
-    /**
-     * Getter for <code>raj.pto.officebodyid</code>.
-     */
-    public Long getOfficebodyid()
-    {
-        return (Long) get(14);
-    }
-
-    /**
-     * Setter for <code>raj.pto.officebodyid</code>.
-     */
-    public void setOfficebodyid(Long value)
-    {
-        set(14, value);
-    }
-
-    @Override
-    public Long component16()
-    {
-        return getBodyid();
-    }
-
-    /**
-     * Getter for <code>raj.pto.bodyid</code>.
-     */
-    public Long getBodyid()
-    {
-        return (Long) get(15);
-    }
-
-    /**
-     * Setter for <code>raj.pto.bodyid</code>.
-     */
-    public void setBodyid(Long value)
-    {
-        set(15, value);
-    }
-
-    @Override
-    public String component17()
-    {
-        return getName();
-    }
-
-    /**
-     * Getter for <code>raj.pto.name</code>.
-     */
-    public String getName()
-    {
-        return (String) get(16);
-    }
-
-    /**
-     * Setter for <code>raj.pto.name</code>.
-     */
-    public void setName(String value)
-    {
-        set(16, value);
-    }
-
-    @Override
-    public Double component18()
-    {
-        return getBodyprecedence();
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Getter for <code>raj.pto.bodyprecedence</code>. Field for ordering in reports and web pages.  Stored as double to
-     * allow insertions of new bodies.
-     */
-    public Double getBodyprecedence()
-    {
-        return (Double) get(17);
-    }
-
-    /**
-     * Setter for <code>raj.pto.bodyprecedence</code>. Field for ordering in
-     * reports and web pages.  Stored as double to allow insertions of new
-     * bodies.
-     */
-    public void setBodyprecedence(Double value)
-    {
-        set(17, value);
     }
 }

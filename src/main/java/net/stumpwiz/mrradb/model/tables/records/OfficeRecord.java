@@ -42,6 +42,78 @@ public class OfficeRecord extends UpdatableRecordImpl<OfficeRecord> implements R
         setOfficebodyid(officebodyid);
     }
 
+    /**
+     * Getter for <code>raj.office.officeid</code>.
+     */
+    public Long getOfficeid()
+    {
+        return (Long) get(0);
+    }
+
+    /**
+     * Setter for <code>raj.office.officeid</code>.
+     */
+    public void setOfficeid(Long value)
+    {
+        set(0, value);
+    }
+
+    /**
+     * Getter for <code>raj.office.title</code>.
+     */
+    public String getTitle()
+    {
+        return (String) get(1);
+    }
+
+    /**
+     * Setter for <code>raj.office.title</code>.
+     */
+    public void setTitle(String value)
+    {
+        set(1, value);
+    }
+
+    /**
+     * Getter for <code>raj.office.officeprecedence</code>.
+     */
+    public Double getOfficeprecedence()
+    {
+        return (Double) get(2);
+    }
+
+    /**
+     * Setter for <code>raj.office.officeprecedence</code>.
+     */
+    public void setOfficeprecedence(Double value)
+    {
+        set(2, value);
+    }
+
+    // -------------------------------------------------------------------------
+    // Primary key information
+    // -------------------------------------------------------------------------
+
+    /**
+     * Getter for <code>raj.office.officebodyid</code>.
+     */
+    public Long getOfficebodyid()
+    {
+        return (Long) get(3);
+    }
+
+    // -------------------------------------------------------------------------
+    // Record4 type implementation
+    // -------------------------------------------------------------------------
+
+    /**
+     * Setter for <code>raj.office.officebodyid</code>.
+     */
+    public void setOfficebodyid(Long value)
+    {
+        set(3, value);
+    }
+
     @Override
     public Record1<Long> key()
     {
@@ -78,19 +150,35 @@ public class OfficeRecord extends UpdatableRecordImpl<OfficeRecord> implements R
         return Office.OFFICE.OFFICEPRECEDENCE;
     }
 
-    // -------------------------------------------------------------------------
-    // Primary key information
-    // -------------------------------------------------------------------------
-
     @Override
     public Field<Long> field4()
     {
         return Office.OFFICE.OFFICEBODYID;
     }
 
-    // -------------------------------------------------------------------------
-    // Record4 type implementation
-    // -------------------------------------------------------------------------
+    @Override
+    public Long component1()
+    {
+        return getOfficeid();
+    }
+
+    @Override
+    public String component2()
+    {
+        return getTitle();
+    }
+
+    @Override
+    public Double component3()
+    {
+        return getOfficeprecedence();
+    }
+
+    @Override
+    public Long component4()
+    {
+        return getOfficebodyid();
+    }
 
     @Override
     public Long value1()
@@ -137,6 +225,10 @@ public class OfficeRecord extends UpdatableRecordImpl<OfficeRecord> implements R
         return this;
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     public OfficeRecord value4(Long value)
     {
@@ -152,97 +244,5 @@ public class OfficeRecord extends UpdatableRecordImpl<OfficeRecord> implements R
         value3(value3);
         value4(value4);
         return this;
-    }
-
-    @Override
-    public Long component1()
-    {
-        return getOfficeid();
-    }
-
-    /**
-     * Getter for <code>raj.office.officeid</code>.
-     */
-    public Long getOfficeid()
-    {
-        return (Long) get(0);
-    }
-
-    /**
-     * Setter for <code>raj.office.officeid</code>.
-     */
-    public void setOfficeid(Long value)
-    {
-        set(0, value);
-    }
-
-    @Override
-    public String component2()
-    {
-        return getTitle();
-    }
-
-    /**
-     * Getter for <code>raj.office.title</code>.
-     */
-    public String getTitle()
-    {
-        return (String) get(1);
-    }
-
-    /**
-     * Setter for <code>raj.office.title</code>.
-     */
-    public void setTitle(String value)
-    {
-        set(1, value);
-    }
-
-    @Override
-    public Double component3()
-    {
-        return getOfficeprecedence();
-    }
-
-    /**
-     * Getter for <code>raj.office.officeprecedence</code>.
-     */
-    public Double getOfficeprecedence()
-    {
-        return (Double) get(2);
-    }
-
-    /**
-     * Setter for <code>raj.office.officeprecedence</code>.
-     */
-    public void setOfficeprecedence(Double value)
-    {
-        set(2, value);
-    }
-
-    @Override
-    public Long component4()
-    {
-        return getOfficebodyid();
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Getter for <code>raj.office.officebodyid</code>.
-     */
-    public Long getOfficebodyid()
-    {
-        return (Long) get(3);
-    }
-
-    /**
-     * Setter for <code>raj.office.officebodyid</code>.
-     */
-    public void setOfficebodyid(Long value)
-    {
-        set(3, value);
     }
 }

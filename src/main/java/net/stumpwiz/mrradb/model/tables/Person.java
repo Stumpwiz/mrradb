@@ -13,9 +13,12 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
+import java.util.function.Function;
+
 
 /**
- * A resident, staff member, or any other individual serving in some office at Mercy Ridge.
+ * A resident, staff member, or any other individual serving in some office at
+ * Mercy Ridge.
  */
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Person extends TableImpl<PersonRecord>
@@ -31,46 +34,32 @@ public class Person extends TableImpl<PersonRecord>
     /**
      * The column <code>raj.person.personid</code>.
      */
-    public final TableField<PersonRecord, Long> PERSONID =
-            createField(DSL.name("personid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<PersonRecord, Long> PERSONID = createField(DSL.name("personid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
     /**
      * The column <code>raj.person.first</code>.
      */
-    public final TableField<PersonRecord, String> FIRST =
-            createField(DSL.name("first"), SQLDataType.VARCHAR(15), this, "");
+    public final TableField<PersonRecord, String> FIRST = createField(DSL.name("first"), SQLDataType.VARCHAR(15), this, "");
     /**
      * The column <code>raj.person.last</code>.
      */
-    public final TableField<PersonRecord, String> LAST =
-            createField(DSL.name("last"), SQLDataType.VARCHAR(30), this, "");
+    public final TableField<PersonRecord, String> LAST = createField(DSL.name("last"), SQLDataType.VARCHAR(30), this, "");
     /**
      * The column <code>raj.person.email</code>.
      */
-    public final TableField<PersonRecord, String> EMAIL =
-            createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
+    public final TableField<PersonRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
     /**
      * The column <code>raj.person.phone</code>.
      */
-    public final TableField<PersonRecord, String> PHONE =
-            createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
+    public final TableField<PersonRecord, String> PHONE = createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
     /**
      * The column <code>raj.person.personimage</code>.
      */
-    public final TableField<PersonRecord, String> PERSONIMAGE =
-            createField(DSL.name("personimage"), SQLDataType.VARCHAR(45), this, "");
+    public final TableField<PersonRecord, String> PERSONIMAGE = createField(DSL.name("personimage"), SQLDataType.VARCHAR(45), this, "");
 
     /**
      * The column <code>raj.person.apt</code>.
      */
     public final TableField<PersonRecord, String> APT = createField(DSL.name("apt"), SQLDataType.CHAR(4), this, "");
-
-    /**
-     * Create an aliased <code>raj.person</code> table reference
-     */
-    public Person(String alias)
-    {
-        this(DSL.name(alias), PERSON);
-    }
 
     private Person(Name alias, Table<PersonRecord> aliased)
     {
@@ -79,9 +68,15 @@ public class Person extends TableImpl<PersonRecord>
 
     private Person(Name alias, Table<PersonRecord> aliased, Field<?>[] parameters)
     {
-        super(alias, null, aliased, parameters,
-                DSL.comment("A resident, staff member, or any other individual serving in some office at Mercy Ridge."),
-                TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment("A resident, staff member, or any other individual serving in some office at Mercy Ridge."), TableOptions.table());
+    }
+
+    /**
+     * Create an aliased <code>raj.person</code> table reference
+     */
+    public Person(String alias)
+    {
+        this(DSL.name(alias), PERSON);
     }
 
     /**
@@ -105,10 +100,13 @@ public class Person extends TableImpl<PersonRecord>
         super(child, key, PERSON);
     }
 
+    /**
+     * The class holding records for this type
+     */
     @Override
-    public Person as(String alias)
+    public Class<PersonRecord> getRecordType()
     {
-        return new Person(DSL.name(alias), this);
+        return PersonRecord.class;
     }
 
     @Override
@@ -130,15 +128,21 @@ public class Person extends TableImpl<PersonRecord>
     }
 
     @Override
-    public Row7<Long, String, String, String, String, String, String> fieldsRow()
+    public Person as(String alias)
     {
-        return (Row7) super.fieldsRow();
+        return new Person(DSL.name(alias), this);
     }
 
     @Override
     public Person as(Name alias)
     {
         return new Person(alias, this);
+    }
+
+    @Override
+    public Person as(Table<?> alias)
+    {
+        return new Person(alias.getQualifiedName(), this);
     }
 
     /**
@@ -159,16 +163,39 @@ public class Person extends TableImpl<PersonRecord>
         return new Person(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Person rename(Table<?> name)
+    {
+        return new Person(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row7 type methods
     // -------------------------------------------------------------------------
 
-    /**
-     * The class holding records for this type
-     */
     @Override
-    public Class<PersonRecord> getRecordType()
+    public Row7<Long, String, String, String, String, String, String> fieldsRow()
     {
-        return PersonRecord.class;
+        return (Row7) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function7<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from)
+    {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from)
+    {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

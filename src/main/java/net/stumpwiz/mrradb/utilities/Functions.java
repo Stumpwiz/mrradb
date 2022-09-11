@@ -53,12 +53,10 @@ public class Functions
             throws IOException, InterruptedException
     {
         /* Delete any prior report PDF's. */
-        try
-        {
+        try {
             Files.delete(FileSystems.getDefault()
                     .getPath(OS_PATH + fileName + ".pdf"));
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             //ignore if no predecessor.
         }
 
@@ -81,16 +79,14 @@ public class Functions
         assert exitCode == 0;
 
         /* Clean up work files from the lualatex run. */
-        try
-        {
+        try {
             Files.delete(FileSystems.getDefault().getPath(PATH + fileName +
                     ".aux"));
             Files.delete(FileSystems.getDefault().getPath(PATH + fileName +
                     ".log"));
             Files.delete(FileSystems.getDefault().getPath(PATH + fileName +
                     ".synctex.gz"));
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             // ignore file not found.
         }
     }
@@ -216,6 +212,15 @@ public class Functions
         return (start.isBefore(end));
     }
 
+    /**
+     * For validating office title. May not be null. Checks only for length.
+     */
+    public static boolean isValidTitle(String title)
+    {
+        if (title == null) return false;
+        return (title.length() <= MAX_OFFICE_TITLE_LENGTH && title.length() >= MIN_OFFICE_TITLE_LENGTH);
+    }
+
     public static class StreamGobbler implements Runnable
     {
         private final InputStream inputStream;
@@ -233,14 +238,5 @@ public class Functions
             new BufferedReader(new InputStreamReader(inputStream)).lines()
                     .forEach(consumer);
         }
-    }
-
-    /**
-     * For validating office title. May not be null. Checks only for length.
-     */
-    public static boolean isValidTitle(String title)
-    {
-        if (title == null) return false;
-        return (title.length() <= MAX_OFFICE_TITLE_LENGTH && title.length() >= MIN_OFFICE_TITLE_LENGTH);
     }
 }

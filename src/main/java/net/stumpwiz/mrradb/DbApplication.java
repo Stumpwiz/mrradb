@@ -12,9 +12,6 @@ import java.util.Objects;
 
 public class DbApplication extends Application
 {
-    //TODO Move to a C:/ directory.
-    //TODO Package an executable.
-    //TODO See https://gluonhq.com/create-native-javafx-applications-using-graalvm-22-builds-from-gluon/
     public static void main(String[] args)
     {
         launch();

@@ -13,11 +13,11 @@ import org.jooq.impl.UpdatableRecordImpl;
 
 
 /**
- * A resident, staff member, or any other individual serving in some office at Mercy Ridge.
+ * A resident, staff member, or any other individual serving in some office at
+ * Mercy Ridge.
  */
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
-public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
-        implements Record7<Long, String, String, String, String, String, String>
+public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements Record7<Long, String, String, String, String, String, String>
 {
 
     private static final long serialVersionUID = 1L;
@@ -33,8 +33,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
     /**
      * Create a detached, initialised PersonRecord
      */
-    public PersonRecord(
-            Long personid, String first, String last, String email, String phone, String apt, String personimage)
+    public PersonRecord(Long personid, String first, String last, String email, String phone, String apt, String personimage)
     {
         super(Person.PERSON);
 
@@ -45,6 +44,126 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
         setPhone(phone);
         setApt(apt);
         setPersonimage(personimage);
+    }
+
+    /**
+     * Getter for <code>raj.person.personid</code>.
+     */
+    public Long getPersonid()
+    {
+        return (Long) get(0);
+    }
+
+    /**
+     * Setter for <code>raj.person.personid</code>.
+     */
+    public void setPersonid(Long value)
+    {
+        set(0, value);
+    }
+
+    /**
+     * Getter for <code>raj.person.first</code>.
+     */
+    public String getFirst()
+    {
+        return (String) get(1);
+    }
+
+    /**
+     * Setter for <code>raj.person.first</code>.
+     */
+    public void setFirst(String value)
+    {
+        set(1, value);
+    }
+
+    /**
+     * Getter for <code>raj.person.last</code>.
+     */
+    public String getLast()
+    {
+        return (String) get(2);
+    }
+
+    /**
+     * Setter for <code>raj.person.last</code>.
+     */
+    public void setLast(String value)
+    {
+        set(2, value);
+    }
+
+    /**
+     * Getter for <code>raj.person.email</code>.
+     */
+    public String getEmail()
+    {
+        return (String) get(3);
+    }
+
+    /**
+     * Setter for <code>raj.person.email</code>.
+     */
+    public void setEmail(String value)
+    {
+        set(3, value);
+    }
+
+    /**
+     * Getter for <code>raj.person.phone</code>.
+     */
+    public String getPhone()
+    {
+        return (String) get(4);
+    }
+
+    /**
+     * Setter for <code>raj.person.phone</code>.
+     */
+    public void setPhone(String value)
+    {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>raj.person.apt</code>.
+     */
+    public String getApt()
+    {
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>raj.person.apt</code>.
+     */
+    public void setApt(String value)
+    {
+        set(5, value);
+    }
+
+    // -------------------------------------------------------------------------
+    // Primary key information
+    // -------------------------------------------------------------------------
+
+    /**
+     * Getter for <code>raj.person.personimage</code>.
+     */
+    public String getPersonimage()
+    {
+        return (String) get(6);
+    }
+
+    // -------------------------------------------------------------------------
+    // Record7 type implementation
+    // -------------------------------------------------------------------------
+
+    /**
+     * Setter for <code>raj.person.personimage</code>.
+     */
+    public void setPersonimage(String value)
+    {
+        set(6, value);
     }
 
     @Override
@@ -108,6 +227,48 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
     }
 
     @Override
+    public Long component1()
+    {
+        return getPersonid();
+    }
+
+    @Override
+    public String component2()
+    {
+        return getFirst();
+    }
+
+    @Override
+    public String component3()
+    {
+        return getLast();
+    }
+
+    @Override
+    public String component4()
+    {
+        return getEmail();
+    }
+
+    @Override
+    public String component5()
+    {
+        return getPhone();
+    }
+
+    @Override
+    public String component6()
+    {
+        return getApt();
+    }
+
+    @Override
+    public String component7()
+    {
+        return getPersonimage();
+    }
+
+    @Override
     public Long value1()
     {
         return getPersonid();
@@ -119,19 +280,11 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
         return getFirst();
     }
 
-    // -------------------------------------------------------------------------
-    // Primary key information
-    // -------------------------------------------------------------------------
-
     @Override
     public String value3()
     {
         return getLast();
     }
-
-    // -------------------------------------------------------------------------
-    // Record7 type implementation
-    // -------------------------------------------------------------------------
 
     @Override
     public String value4()
@@ -199,6 +352,10 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
         return this;
     }
 
+    // -------------------------------------------------------------------------
+    // Constructors
+    // -------------------------------------------------------------------------
+
     @Override
     public PersonRecord value7(String value)
     {
@@ -207,8 +364,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
     }
 
     @Override
-    public PersonRecord values(
-            Long value1, String value2, String value3, String value4, String value5, String value6, String value7)
+    public PersonRecord values(Long value1, String value2, String value3, String value4, String value5, String value6, String value7)
     {
         value1(value1);
         value2(value2);
@@ -218,163 +374,5 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord>
         value6(value6);
         value7(value7);
         return this;
-    }
-
-    @Override
-    public Long component1()
-    {
-        return getPersonid();
-    }
-
-    /**
-     * Getter for <code>raj.person.personid</code>.
-     */
-    public Long getPersonid()
-    {
-        return (Long) get(0);
-    }
-
-    /**
-     * Setter for <code>raj.person.personid</code>.
-     */
-    public void setPersonid(Long value)
-    {
-        set(0, value);
-    }
-
-    @Override
-    public String component2()
-    {
-        return getFirst();
-    }
-
-    /**
-     * Getter for <code>raj.person.first</code>.
-     */
-    public String getFirst()
-    {
-        return (String) get(1);
-    }
-
-    /**
-     * Setter for <code>raj.person.first</code>.
-     */
-    public void setFirst(String value)
-    {
-        set(1, value);
-    }
-
-    @Override
-    public String component3()
-    {
-        return getLast();
-    }
-
-    /**
-     * Getter for <code>raj.person.last</code>.
-     */
-    public String getLast()
-    {
-        return (String) get(2);
-    }
-
-    /**
-     * Setter for <code>raj.person.last</code>.
-     */
-    public void setLast(String value)
-    {
-        set(2, value);
-    }
-
-    @Override
-    public String component4()
-    {
-        return getEmail();
-    }
-
-    /**
-     * Getter for <code>raj.person.email</code>.
-     */
-    public String getEmail()
-    {
-        return (String) get(3);
-    }
-
-    /**
-     * Setter for <code>raj.person.email</code>.
-     */
-    public void setEmail(String value)
-    {
-        set(3, value);
-    }
-
-    @Override
-    public String component5()
-    {
-        return getPhone();
-    }
-
-    /**
-     * Getter for <code>raj.person.phone</code>.
-     */
-    public String getPhone()
-    {
-        return (String) get(4);
-    }
-
-    /**
-     * Setter for <code>raj.person.phone</code>.
-     */
-    public void setPhone(String value)
-    {
-        set(4, value);
-    }
-
-    @Override
-    public String component6()
-    {
-        return getApt();
-    }
-
-    /**
-     * Getter for <code>raj.person.apt</code>.
-     */
-    public String getApt()
-    {
-        return (String) get(5);
-    }
-
-    /**
-     * Setter for <code>raj.person.apt</code>.
-     */
-    public void setApt(String value)
-    {
-        set(5, value);
-    }
-
-    @Override
-    public String component7()
-    {
-        return getPersonimage();
-    }
-
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
-
-    /**
-     * Getter for <code>raj.person.personimage</code>.
-     */
-    public String getPersonimage()
-    {
-        return (String) get(6);
-    }
-
-    /**
-     * Setter for <code>raj.person.personimage</code>.
-     */
-    public void setPersonimage(String value)
-    {
-        set(6, value);
     }
 }

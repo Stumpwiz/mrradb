@@ -42,11 +42,9 @@ public final class Reports
         writer.write("\\footnotesize \n");
         writer.write("\\begin{tabular}{llll} \n");
         writer.write("{\\em Body} & {\\em Office} & {\\em Incumbent} &  {\\em " + "Term} \\\\ \\hline \n");
-        for (PtoRecord record : expiringAndVacantRecords)
-        {
+        for (PtoRecord record : expiringAndVacantRecords) {
             LocalDate endOfTerm = LocalDate.parse(Objects.requireNonNull(termEnd.getValue(record)).toString());
-            if (endOfTerm.isBefore(endOfYear) || endOfTerm.isEqual(endOfYear))
-            {
+            if (endOfTerm.isBefore(endOfYear) || endOfTerm.isEqual(endOfYear)) {
                 writer.write(bodyName.getValue(record) + " & " + officeTitle.getValue(record) + " & "
                         + personFirst.getValue(record) + " " + personLast.getValue(record) + " & " +
                         termOrdinal.getValue(record) + " \\\\ \n");
@@ -103,19 +101,16 @@ public final class Reports
                         personLast).fetchInto(PtoRecord.class);
         writeHeader(writer, "Short Form Roster");
         writer.write("\\begin{multicols}{2} \n");
-        for (Record1<String> bodyNameRecord : rcBodies)
-        {
+        for (Record1<String> bodyNameRecord : rcBodies) {
             String bodyName = bodyNameRecord.value1();
             writer.write("\\section{" + bodyName + "} \n ");
             writer.write("\\begin{center} \n");
             writer.write("\\footnotesize \n");
             writer.write("\\begin{tabular}{llc} \n");
             writer.write("{\\em Office} & {\\em Incumbent} \\\\ \\hline \n");
-            for (PtoRecord record : records)
-            {
+            for (PtoRecord record : records) {
                 String currentBody = record.getName();
-                if (currentBody.equals(bodyName))
-                {
+                if (currentBody.equals(bodyName)) {
                     writer.write(record.getTitle() + " & " + record.getFirst() + " "
                             + (record.getLast() == null ? BLANK : record.getLast() + " \\\\ \n"));
                 }
@@ -141,19 +136,16 @@ public final class Reports
                 .orderBy(bodyName, officePrecedence, personFirst,
                         personLast).fetchInto(PtoRecord.class);
         writeHeader(writer, "Long Form Roster");
-        for (Record1<String> bodyNameRecord : rcBodies)
-        {
+        for (Record1<String> bodyNameRecord : rcBodies) {
             String bodyName = bodyNameRecord.value1();
             writer.write("\\section{" + bodyName + "} \n ");
             writer.write("\\begin{center} \n");
             writer.write("\\footnotesize \n");
             writer.write("\\begin{tabular}{llllc} \n");
             writer.write("{\\em Incumbent} & {\\em Office} & {\\em Email} & {\\em Phone} & {\\em Apt} \\\\ \\hline \n");
-            for (PtoRecord record : records)
-            {
+            for (PtoRecord record : records) {
                 String currentBody = record.getName();
-                if (currentBody.equals(bodyName))
-                {
+                if (currentBody.equals(bodyName)) {
                     writer.write(record.getFirst() + " " + (record.getLast() == null ? BLANK : record.getLast())
                             + " & " + (record.getTitle() == null ? BLANK : record.getTitle()) + " & "
                             + (record.getEmail() == null ? BLANK : "{\\tt " + record.getEmail() + "}") + " & "

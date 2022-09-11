@@ -16,6 +16,7 @@ import org.jooq.impl.TableImpl;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 
 /**
@@ -35,13 +36,11 @@ public class Term extends TableImpl<TermRecord>
     /**
      * The column <code>raj.term.start</code>.
      */
-    public final TableField<TermRecord, LocalDate> START =
-            createField(DSL.name("start"), SQLDataType.LOCALDATE, this, "");
+    public final TableField<TermRecord, LocalDate> START = createField(DSL.name("start"), SQLDataType.LOCALDATE, this, "");
     /**
      * The column <code>raj.term.ordinal</code>.
      */
-    public final TableField<TermRecord, String> ORDINAL =
-            createField(DSL.name("ordinal"), SQLDataType.CHAR(7), this, "");
+    public final TableField<TermRecord, String> ORDINAL = createField(DSL.name("ordinal"), SQLDataType.CHAR(7), this, "");
 
     /**
      * The column <code>raj.term.end</code>.
@@ -50,23 +49,13 @@ public class Term extends TableImpl<TermRecord>
     /**
      * The column <code>raj.term.termpersonid</code>.
      */
-    public final TableField<TermRecord, Long> TERMPERSONID =
-            createField(DSL.name("termpersonid"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<TermRecord, Long> TERMPERSONID = createField(DSL.name("termpersonid"), SQLDataType.BIGINT.nullable(false), this, "");
     /**
      * The column <code>raj.term.termofficeid</code>.
      */
-    public final TableField<TermRecord, Long> TERMOFFICEID =
-            createField(DSL.name("termofficeid"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<TermRecord, Long> TERMOFFICEID = createField(DSL.name("termofficeid"), SQLDataType.BIGINT.nullable(false), this, "");
     private transient Person _person;
     private transient Office _office;
-
-    /**
-     * Create an aliased <code>raj.term</code> table reference
-     */
-    public Term(String alias)
-    {
-        this(DSL.name(alias), TERM);
-    }
 
     private Term(Name alias, Table<TermRecord> aliased)
     {
@@ -76,6 +65,14 @@ public class Term extends TableImpl<TermRecord>
     private Term(Name alias, Table<TermRecord> aliased, Field<?>[] parameters)
     {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    }
+
+    /**
+     * Create an aliased <code>raj.term</code> table reference
+     */
+    public Term(String alias)
+    {
+        this(DSL.name(alias), TERM);
     }
 
     /**
@@ -97,6 +94,33 @@ public class Term extends TableImpl<TermRecord>
     public <O extends Record> Term(Table<O> child, ForeignKey<O, TermRecord> key)
     {
         super(child, key, TERM);
+    }
+
+    /**
+     * The class holding records for this type
+     */
+    @Override
+    public Class<TermRecord> getRecordType()
+    {
+        return TermRecord.class;
+    }
+
+    @Override
+    public Schema getSchema()
+    {
+        return aliased() ? null : Raj.RAJ;
+    }
+
+    @Override
+    public UniqueKey<TermRecord> getPrimaryKey()
+    {
+        return Keys.KEY_TERM_PRIMARY;
+    }
+
+    @Override
+    public List<ForeignKey<TermRecord, ?>> getReferences()
+    {
+        return Arrays.asList(Keys.TERM_PERSON_FK1, Keys.TERM_OFFICE_FK2);
     }
 
     /**
@@ -128,33 +152,15 @@ public class Term extends TableImpl<TermRecord>
     }
 
     @Override
-    public Schema getSchema()
-    {
-        return aliased() ? null : Raj.RAJ;
-    }
-
-    @Override
-    public UniqueKey<TermRecord> getPrimaryKey()
-    {
-        return Keys.KEY_TERM_PRIMARY;
-    }
-
-    @Override
-    public List<ForeignKey<TermRecord, ?>> getReferences()
-    {
-        return Arrays.asList(Keys.TERM_PERSON_FK1, Keys.TERM_OFFICE_FK2);
-    }
-
-    @Override
-    public Row5<LocalDate, LocalDate, String, Long, Long> fieldsRow()
-    {
-        return (Row5) super.fieldsRow();
-    }
-
-    @Override
     public Term as(Name alias)
     {
         return new Term(alias, this);
+    }
+
+    @Override
+    public Term as(Table<?> alias)
+    {
+        return new Term(alias.getQualifiedName(), this);
     }
 
     /**
@@ -175,16 +181,39 @@ public class Term extends TableImpl<TermRecord>
         return new Term(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Term rename(Table<?> name)
+    {
+        return new Term(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
 
-    /**
-     * The class holding records for this type
-     */
     @Override
-    public Class<TermRecord> getRecordType()
+    public Row5<LocalDate, LocalDate, String, Long, Long> fieldsRow()
     {
-        return TermRecord.class;
+        return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super LocalDate, ? super LocalDate, ? super String, ? super Long, ? super Long, ? extends U> from)
+    {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super LocalDate, ? super LocalDate, ? super String, ? super Long, ? super Long, ? extends U> from)
+    {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

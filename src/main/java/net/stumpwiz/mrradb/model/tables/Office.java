@@ -15,6 +15,7 @@ import org.jooq.impl.TableImpl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 
 /**
@@ -34,32 +35,20 @@ public class Office extends TableImpl<OfficeRecord>
     /**
      * The column <code>raj.office.officeid</code>.
      */
-    public final TableField<OfficeRecord, Long> OFFICEID =
-            createField(DSL.name("officeid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<OfficeRecord, Long> OFFICEID = createField(DSL.name("officeid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
     /**
      * The column <code>raj.office.title</code>.
      */
-    public final TableField<OfficeRecord, String> TITLE =
-            createField(DSL.name("title"), SQLDataType.VARCHAR(45), this, "");
+    public final TableField<OfficeRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(45), this, "");
     /**
      * The column <code>raj.office.officeprecedence</code>.
      */
-    public final TableField<OfficeRecord, Double> OFFICEPRECEDENCE =
-            createField(DSL.name("officeprecedence"), SQLDataType.DOUBLE, this, "");
+    public final TableField<OfficeRecord, Double> OFFICEPRECEDENCE = createField(DSL.name("officeprecedence"), SQLDataType.DOUBLE, this, "");
     /**
      * The column <code>raj.office.officebodyid</code>.
      */
-    public final TableField<OfficeRecord, Long> OFFICEBODYID =
-            createField(DSL.name("officebodyid"), SQLDataType.BIGINT, this, "");
+    public final TableField<OfficeRecord, Long> OFFICEBODYID = createField(DSL.name("officebodyid"), SQLDataType.BIGINT, this, "");
     private transient Body _body;
-
-    /**
-     * Create an aliased <code>raj.office</code> table reference
-     */
-    public Office(String alias)
-    {
-        this(DSL.name(alias), OFFICE);
-    }
 
     private Office(Name alias, Table<OfficeRecord> aliased)
     {
@@ -69,6 +58,14 @@ public class Office extends TableImpl<OfficeRecord>
     private Office(Name alias, Table<OfficeRecord> aliased, Field<?>[] parameters)
     {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    }
+
+    /**
+     * Create an aliased <code>raj.office</code> table reference
+     */
+    public Office(String alias)
+    {
+        this(DSL.name(alias), OFFICE);
     }
 
     /**
@@ -93,20 +90,12 @@ public class Office extends TableImpl<OfficeRecord>
     }
 
     /**
-     * Get the implicit join path to the <code>raj.body</code> table.
+     * The class holding records for this type
      */
-    public Body body()
-    {
-        if (_body == null)
-            _body = new Body(this, Keys.OFFICE_BODY_FK);
-
-        return _body;
-    }
-
     @Override
-    public Office as(String alias)
+    public Class<OfficeRecord> getRecordType()
     {
-        return new Office(DSL.name(alias), this);
+        return OfficeRecord.class;
     }
 
     @Override
@@ -133,16 +122,33 @@ public class Office extends TableImpl<OfficeRecord>
         return Arrays.asList(Keys.OFFICE_BODY_FK);
     }
 
-    @Override
-    public Row4<Long, String, Double, Long> fieldsRow()
+    /**
+     * Get the implicit join path to the <code>raj.body</code> table.
+     */
+    public Body body()
     {
-        return (Row4) super.fieldsRow();
+        if (_body == null)
+            _body = new Body(this, Keys.OFFICE_BODY_FK);
+
+        return _body;
+    }
+
+    @Override
+    public Office as(String alias)
+    {
+        return new Office(DSL.name(alias), this);
     }
 
     @Override
     public Office as(Name alias)
     {
         return new Office(alias, this);
+    }
+
+    @Override
+    public Office as(Table<?> alias)
+    {
+        return new Office(alias.getQualifiedName(), this);
     }
 
     /**
@@ -163,16 +169,39 @@ public class Office extends TableImpl<OfficeRecord>
         return new Office(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Office rename(Table<?> name)
+    {
+        return new Office(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row4 type methods
     // -------------------------------------------------------------------------
 
-    /**
-     * The class holding records for this type
-     */
     @Override
-    public Class<OfficeRecord> getRecordType()
+    public Row4<Long, String, Double, Long> fieldsRow()
     {
-        return OfficeRecord.class;
+        return (Row4) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function4<? super Long, ? super String, ? super Double, ? super Long, ? extends U> from)
+    {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super Long, ? super String, ? super Double, ? super Long, ? extends U> from)
+    {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

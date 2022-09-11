@@ -42,8 +42,8 @@ public class DbController implements Initializable
     private final ObservableList<PtoRecord> termsPtoListObs = FXCollections.observableArrayList();
     private final ObservableList<OfficeRecord> termsOfficesListObs = FXCollections.observableArrayList();
     private final ObservableList<BodyRecord> termsTermBodyListObs = FXCollections.observableArrayList();
-    Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-    DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
+    final Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+    final DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
     private BodyRecord selectedBody = new BodyRecord();
     private OfficeRecord selectedOffice = new OfficeRecord();
     private PersonRecord selectedPerson = new PersonRecord();
@@ -147,6 +147,22 @@ public class DbController implements Initializable
     {
     }
 
+    private static void addSelectedPerson(
+            PersonRecord selectedPerson, ObservableList<PersonRecord> peoplePersonListObs,
+            ListView<PersonRecord> peoplePersonListView)
+    {
+        peoplePersonListObs.add(selectedPerson);
+        peoplePersonListObs.sort((p1, p2) ->
+        {
+            int result = p1.getFirst().compareToIgnoreCase(p2.getFirst());
+            if (result == 0) {
+                result = p1.getLast().compareToIgnoreCase(p2.getLast());
+            }
+            return result;
+        });
+        peoplePersonListView.getSelectionModel().select(selectedPerson);
+    }
+
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle)
     {
@@ -162,11 +178,9 @@ public class DbController implements Initializable
             public void updateItem(PersonRecord item, boolean empty)
             {
                 super.updateItem(item, empty);
-                if (empty || item == null)
-                {
+                if (empty || item == null) {
                     setText(null);
-                } else
-                {
+                } else {
                     setText(item.getFirst() + " " + item.getLast());
                 }
             }
@@ -177,14 +191,12 @@ public class DbController implements Initializable
         peoplePersonListView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     selectedPerson = newValue;
-                    if (newValue != null)
-                    {
+                    if (newValue != null) {
                         String imageName = selectedPerson.getPersonimage();
                         peopleImageNameTextField.setText(imageName);
                         String imageResource = "file:\\" + IMAGE_PATH + imageName;
                         Image image = new Image(imageResource);
-                        if (image.errorProperty().get())
-                        {
+                        if (image.errorProperty().get()) {
                             errorAlert(imageName + " not found in \n" + IMAGE_PATH);
                             peopleImageNameTextField.setText(MISSING_PERSON_IMAGE);
                         }
@@ -206,8 +218,7 @@ public class DbController implements Initializable
                                 .from(ptoTable)
                                 .where(termPersonId.eq(selectedPersonId))
                                 .orderBy(bodyName).fetchInto(PtoRecord.class);
-                        if (!termsPtoList.isEmpty())
-                        {
+                        if (!termsPtoList.isEmpty()) {
                             termsPtoListObs.setAll(termsPtoList);
                             termsPtoListView.setItems(termsPtoListObs);
                             selectedPto = termsPtoListObs.get(FIRST_ELEMENT);
@@ -218,11 +229,9 @@ public class DbController implements Initializable
                                 public void updateItem(PtoRecord item, boolean empty)
                                 {
                                     super.updateItem(item, empty);
-                                    if (empty || item == null)
-                                    {
+                                    if (empty || item == null) {
                                         setText(null);
-                                    } else
-                                    {
+                                    } else {
                                         setText(item.getTitle() + ", " + item.getName() +
                                                 (item.getEnd().isEqual(MAX_DATE) ? ", indefinitely" :
                                                         ", until " + item.getEnd()));
@@ -232,8 +241,7 @@ public class DbController implements Initializable
                             termsPtoListView.getSelectionModel().selectedItemProperty().addListener(this::changed);
                             selectedPto = termsPtoListView.getItems().get(FIRST_ELEMENT);
                             termsPtoListView.getFocusModel().focus(FIRST_ELEMENT);
-                        } else
-                        {
+                        } else {
                             termsPtoListObs.removeAll();
                             selectedPto = null;
                             termsTermStartTextField.setText("");
@@ -251,11 +259,9 @@ public class DbController implements Initializable
                             public void updateItem(BodyRecord item, boolean empty)
                             {
                                 super.updateItem(item, empty);
-                                if (empty || item == null)
-                                {
+                                if (empty || item == null) {
                                     setText(null);
-                                } else
-                                {
+                                } else {
                                     setText(item.getName());
                                 }
                             }
@@ -265,8 +271,7 @@ public class DbController implements Initializable
                                 {
                                     selectedBody = termsBodiesListView.getSelectionModel().getSelectedItem();
                                     /* termsOfficesListView population %%%%%%%%%%%%%%%%%%%%%%%%%%%*/
-                                    if (selectedBody != null)
-                                    {
+                                    if (selectedBody != null) {
                                         List<OfficeRecord> termsOfficesRecordList = create
                                                 .select(officeFields).from(officeTable)
                                                 .where(officeBodyId.eq(
@@ -278,11 +283,9 @@ public class DbController implements Initializable
                                             public void updateItem(OfficeRecord item, boolean empty)
                                             {
                                                 super.updateItem(item, empty);
-                                                if (empty || item == null)
-                                                {
+                                                if (empty || item == null) {
                                                     setText(null);
-                                                } else
-                                                {
+                                                } else {
                                                     setText(item.getTitle());
                                                 }
                                             }
@@ -292,8 +295,7 @@ public class DbController implements Initializable
                                     }
                                 });
                         termsBodiesListView.setItems(termsTermBodyListObs);
-                    } else
-                    {
+                    } else {
                         String imageResource = "file:\\" + IMAGE_PATH + MISSING_PERSON_IMAGE;
                         peopleImageView.setImage(new Image(imageResource));
                         peopleFirstTextField.setText("");
@@ -324,11 +326,9 @@ public class DbController implements Initializable
             public void updateItem(BodyRecord item, boolean empty)
             {
                 super.updateItem(item, empty);
-                if (empty || item == null)
-                {
+                if (empty || item == null) {
                     setText(null);
-                } else
-                {
+                } else {
                     setText(item.getName() + " (" + item.getBodyprecedence() + ")");
                 }
             }
@@ -337,16 +337,14 @@ public class DbController implements Initializable
         officesBodyListView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     selectedBody = newValue;
-                    if (newValue != null)
-                    {
+                    if (newValue != null) {
                         String imageResource = "file:\\" + IMAGE_PATH + selectedBody.getBodyimage();
                         officesBodyImageView.setImage(new Image(imageResource));
                         officesBodyImageFileTextField.setText(selectedBody.getBodyimage());
                         officesBodyNameTextField.setText(selectedBody.getName());
                         officesBodyPrecedenceTextField.setText(selectedBody.getBodyprecedence().toString());
                         officesBodyMissionTextArea.setText(selectedBody.getMission());
-                    } else
-                    {
+                    } else {
                         String imageResource = "file:\\" + IMAGE_PATH + "missingImage.jpg";
                         officesBodyImageView.setImage(new Image(imageResource));
                         officesBodyImageFileTextField.setText("");
@@ -366,11 +364,9 @@ public class DbController implements Initializable
                         public void updateItem(OfficeRecord item, boolean empty)
                         {
                             super.updateItem(item, empty);
-                            if (empty || item == null)
-                            {
+                            if (empty || item == null) {
                                 setText(null);
-                            } else
-                            {
+                            } else {
                                 setText(item.getTitle() + " (" + item.getOfficeprecedence() + ")");
                             }
                         }
@@ -379,13 +375,11 @@ public class DbController implements Initializable
                     officesOfficeListView.getSelectionModel().selectedItemProperty().addListener(
                             (observable2, oldValue2, newValue2) -> {
                                 selectedOffice = newValue2;
-                                if (newValue2 != null)
-                                {
+                                if (newValue2 != null) {
                                     officesOfficeTitleTextField.setText(selectedOffice.getTitle());
                                     officesOfficePrecedenceTextField.setText(
                                             selectedOffice.getOfficeprecedence().toString());
-                                } else
-                                {
+                                } else {
                                     officesOfficeTitleTextField.setText("");
                                     officesOfficePrecedenceTextField.setText("");
                                 }
@@ -398,8 +392,7 @@ public class DbController implements Initializable
     private void changed(ObservableValue<? extends PtoRecord> observable1, PtoRecord oldValue1, PtoRecord newValue1)
     {
         selectedPto = termsPtoListView.getSelectionModel().getSelectedItem();
-        if (selectedPto != null)
-        {
+        if (selectedPto != null) {
             selectedBody = create.select(bodyFields).from(bodyTable)
                     .where(bodyId.eq(new BigInteger(selectedPto.getBodyid().toString())))
                     .fetchOneInto(BodyRecord.class);
@@ -415,11 +408,9 @@ public class DbController implements Initializable
                 public void updateItem(OfficeRecord item, boolean empty)
                 {
                     super.updateItem(item, empty);
-                    if (empty || item == null)
-                    {
+                    if (empty || item == null) {
                         setText(null);
-                    } else
-                    {
+                    } else {
                         setText(item.getTitle());
                     }
                 }
@@ -483,43 +474,35 @@ public class DbController implements Initializable
 
     public void peopleNewPersonAction()
     {
-        try
-        {
+        try {
             String workingImage = peopleImageNameTextField.getText();
-            if (!isValidImage(workingImage))
-            {
+            if (!isValidImage(workingImage)) {
                 throw new RuntimeException("\"" + workingImage + "\" is not a valid image name.");
             }
             String workingFirst = peopleFirstTextField.getText();
-            if (!isValidFirst(workingFirst))
-            {
+            if (!isValidFirst(workingFirst)) {
                 throw new RuntimeException("\"" + workingFirst + "\" is not a valid first name.");
             }
             String workingLast = peopleLastTextField.getText();
-            if (!isValidLast(workingLast))
-            {
+            if (!isValidLast(workingLast)) {
                 throw new RuntimeException("\"" + workingLast + "\" is not a valid last name.");
             }
             String workingEmail = peopleEmailTextField.getText();
-            if (!isValidEmail(workingEmail))
-            {
+            if (!isValidEmail(workingEmail)) {
                 throw new RuntimeException("\"" + workingEmail + "\" is not a valid email address.");
             }
             String workingPhone = peoplePhoneTextField.getText();
-            if (!isValidPhone(workingPhone))
-            {
+            if (!isValidPhone(workingPhone)) {
                 throw new RuntimeException("\"" + workingPhone + "\" is not a valid phone number.");
             }
             String workingApt = peopleAptTextField.getText();
-            if (!isValidApt(workingApt))
-            {
+            if (!isValidApt(workingApt)) {
                 throw new RuntimeException("\"" + workingApt + "\" is not a valid apartment number.");
             }
             PersonRecord workingRecord =
                     create.select(personFields).from(personTable).where(personFirst.eq(workingFirst))
                             .and(personLast.eq(workingLast)).fetchOneInto(PersonRecord.class);
-            if (workingRecord != null)
-            {
+            if (workingRecord != null) {
                 throw new RuntimeException("Person named \"" + workingFirst + " " + workingLast + "\" already exists"
                         + ".");
             }
@@ -532,65 +515,40 @@ public class DbController implements Initializable
             addSelectedPerson(selectedPerson, peoplePersonListObs, peoplePersonListView);
             peoplePersonListView.getSelectionModel().select(selectedPerson);
             peoplePersonListView.scrollTo(selectedPerson);
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
-    }
-
-    private static void addSelectedPerson(
-            PersonRecord selectedPerson, ObservableList<PersonRecord> peoplePersonListObs,
-            ListView<PersonRecord> peoplePersonListView)
-    {
-        peoplePersonListObs.add(selectedPerson);
-        peoplePersonListObs.sort((p1, p2) ->
-        {
-            int result = p1.getFirst().compareToIgnoreCase(p2.getFirst());
-            if (result == 0)
-            {
-                result = p1.getLast().compareToIgnoreCase(p2.getLast());
-            }
-            return result;
-        });
-        peoplePersonListView.getSelectionModel().select(selectedPerson);
     }
 
     public void peopleUpdatePersonAction()
     {
         //TODO selectedPerson is sometimes null!?!?
-        try
-        {
+        try {
             BigInteger workingId = new BigInteger(selectedPerson.getPersonid().toString());
             String workingImage = peopleImageNameTextField.getText();
-            if (!isValidImage(workingImage))
-            {
+            if (!isValidImage(workingImage)) {
                 throw new RuntimeException("\"" + workingImage + "\" is not a valid image name.");
             }
             String workingFirst = peopleFirstTextField.getText();
-            if (!isValidFirst(workingFirst))
-            {
+            if (!isValidFirst(workingFirst)) {
                 throw new RuntimeException("\"" + workingFirst + "\" is not a valid first name.");
             }
             String workingLast = peopleLastTextField.getText();
-            if (!isValidLast(workingLast))
-            {
+            if (!isValidLast(workingLast)) {
                 throw new RuntimeException("\"" + workingLast + "\" is not a valid last name.");
             }
             selectedPerson = create.select(personFields).from(personTable).where(personFirst.eq(workingFirst))
                     .and(personLast.eq(workingLast)).fetchOneInto(PersonRecord.class);
             String workingEmail = peopleEmailTextField.getText();
-            if (!isValidEmail(workingEmail))
-            {
+            if (!isValidEmail(workingEmail)) {
                 throw new RuntimeException("\"" + workingEmail + "\" is not a valid email address.");
             }
             String workingPhone = peoplePhoneTextField.getText();
-            if (!isValidPhone(workingPhone))
-            {
+            if (!isValidPhone(workingPhone)) {
                 throw new RuntimeException("\"" + workingPhone + "\" is not a valid phone number.");
             }
             String workingApt = peopleAptTextField.getText();
-            if (!isValidApt(workingApt))
-            {
+            if (!isValidApt(workingApt)) {
                 throw new RuntimeException("\"" + workingApt + "\" is not a valid apartment number.");
             }
             PersonRecord workingRecord = new PersonRecord(selectedPerson.getPersonid(), workingFirst, workingLast,
@@ -600,8 +558,7 @@ public class DbController implements Initializable
                     .set(personImage, workingImage).where(personId.eq(workingId)).execute();
             peoplePersonListObs.remove(selectedPerson);
             addSelectedPerson(workingRecord, peoplePersonListObs, peoplePersonListView);
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
@@ -615,27 +572,22 @@ public class DbController implements Initializable
 
     public void termsTermNewAction()
     {
-        try
-        {
+        try {
             BodyRecord selectedTermBody = termsBodiesListView.getSelectionModel().getSelectedItem();
-            if (selectedTermBody == null)
-            {
+            if (selectedTermBody == null) {
                 throw new RuntimeException("No body selected for new term.");
             }
             OfficeRecord selectedTermOffice = termsOfficesListView.getSelectionModel().getSelectedItem();
-            if (selectedTermOffice == null)
-            {
+            if (selectedTermOffice == null) {
                 throw new RuntimeException("No office selected for new term.");
             }
             LocalDate workingStart = LocalDate.parse(termsTermStartTextField.getText());
             LocalDate workingEnd = LocalDate.parse(termsTermEndTextField.getText());
-            if (!isValidStartEnd(workingStart, workingEnd))
-            {
+            if (!isValidStartEnd(workingStart, workingEnd)) {
                 throw new RuntimeException("Start and end must be non-null, start before end.");
             }
             String workingOrdinal = termsTermOrdinalTextField.getText();
-            if (!isValidOrdinal(workingOrdinal))
-            {
+            if (!isValidOrdinal(workingOrdinal)) {
                 throw new RuntimeException("Ordinal must be \"First,\" \"Second,\" or \"None.\"");
             }
             TermRecord newTerm = new TermRecord(workingStart, workingEnd, workingOrdinal, selectedPerson.getPersonid(),
@@ -647,33 +599,27 @@ public class DbController implements Initializable
                     .orderBy(bodyName).fetchOneInto(PtoRecord.class);
             termsPtoListObs.add(newTermOfOffice);
             termsPtoListView.scrollTo(newTermOfOffice);
-        } catch (DataAccessException e)
-        {
+        } catch (DataAccessException e) {
             errorAlert("This term of office already exists for " + termsPersonLabel.getText() + ".");
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
 
     public void termsTermUpdateAction()
     {
-        try
-        {
+        try {
             PtoRecord termToUpdate = termsPtoListView.getSelectionModel().getSelectedItem();
-            if (termToUpdate == null)
-            {
+            if (termToUpdate == null) {
                 throw new RuntimeException("No term of office selected to update.");
             }
             LocalDate newTermStart = LocalDate.parse(termsTermStartTextField.getText());
             LocalDate newTermEnd = LocalDate.parse(termsTermEndTextField.getText());
-            if (!isValidStartEnd(newTermStart, newTermEnd))
-            {
+            if (!isValidStartEnd(newTermStart, newTermEnd)) {
                 throw new RuntimeException("Start and end must be non-null, start before end.");
             }
             String newTermOrdinal = termsTermOrdinalTextField.getText();
-            if (!isValidOrdinal(newTermOrdinal))
-            {
+            if (!isValidOrdinal(newTermOrdinal)) {
                 throw new RuntimeException("Ordinal must be \"First,\" \"Second,\" or \"None.\"");
             }
             create.update(termTable)
@@ -688,19 +634,16 @@ public class DbController implements Initializable
             termToUpdate.set(termOrdinal, newTermOrdinal);
             termsPtoListObs.add(termToUpdate);
             termsPtoListView.getSelectionModel().select(termToUpdate);
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
 
     public void termsTermDeleteAction()
     {
-        try
-        {
+        try {
             PtoRecord termToDelete = termsPtoListView.getSelectionModel().getSelectedItem();
-            if (termToDelete == null)
-            {
+            if (termToDelete == null) {
                 throw new RuntimeException("No term of office selected to delete.");
             }
             BigInteger deleteTermPersonId = new BigInteger(String.valueOf(termToDelete.getTermpersonid()));
@@ -708,27 +651,23 @@ public class DbController implements Initializable
             create.deleteFrom(termTable).where(termPersonId.eq(deleteTermPersonId)
                     .and(termOfficeId.eq(deleteTermOfficeId))).execute();
             termsPtoListObs.remove(termToDelete);
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
 
     public void officesNewBodyAction()
     {
-        try
-        {
+        try {
             String workingName = officesBodyNameTextField.getText();
             BodyRecord workingRecord =
                     create.select(bodyFields).from(bodyTable).where(bodyName.eq(workingName))
                             .fetchOneInto(BodyRecord.class);
-            if (workingRecord != null)
-            {
+            if (workingRecord != null) {
                 throw new RuntimeException("Body \"" + workingName + "\" already exists.");
             }
             String newMission = officesBodyMissionTextArea.getText();
-            if (!isValidMission(newMission))
-            {
+            if (!isValidMission(newMission)) {
                 throw new RuntimeException("Mission is limited to " + MAX_BODY_MISSION_LENGTH + " characters.");
             }
             Double newPrecedence = Double.parseDouble(officesBodyPrecedenceTextField.getText());
@@ -741,42 +680,35 @@ public class DbController implements Initializable
             officesBodyListObs.add(workingRecord);
             officesBodyListObs.sort((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
             officesBodyListView.getSelectionModel().select(workingRecord);
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             errorAlert(
                     "Precedence \"" + officesBodyPrecedenceTextField.getText() + "\" must be formatted as a double.");
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
 
     public void officesUpdateBodyAction()
     {
-        try
-        {
+        try {
             String newImageFile = officesBodyImageFileTextField.getText();
-            if (!isValidImage(newImageFile))
-            {
+            if (!isValidImage(newImageFile)) {
                 throw new RuntimeException("\"" + newImageFile + "\" is not valid image file name.");
             }
             File checkFile = new File(IMAGE_PATH + newImageFile);
-            if (!checkFile.exists())
-            {
+            if (!checkFile.exists()) {
                 officesBodyImageFileTextField.setText(selectedBody.getBodyimage());
                 throw new RuntimeException(newImageFile + " not found.");
             }
             String newBody = officesBodyNameTextField.getText();
-            if (!isValidName(newBody))
-            {
+            if (!isValidName(newBody)) {
                 throw new RuntimeException("Body name must be <= " + MAX_BODY_NAME_LENGTH + " and >= "
                         + MIN_BODY_NAME_LENGTH);
             }
             double newPrecedenceDouble = Double.parseDouble(officesBodyPrecedenceTextField.getText());
             BigDecimal newPrecedenceBigDecimal = new BigDecimal(newPrecedenceDouble);
             String newMission = officesBodyMissionTextArea.getText();
-            if (!isValidMission(newMission))
-            {
+            if (!isValidMission(newMission)) {
                 throw new RuntimeException("Mission is limited to " + MAX_BODY_MISSION_LENGTH + " characters.");
             }
             BodyRecord newBodyRecord = new BodyRecord(selectedBody.getBodyid(), newImageFile, newBody, newMission,
@@ -788,12 +720,10 @@ public class DbController implements Initializable
             officesBodyListObs.add(newBodyRecord);
             officesBodyListObs.sort((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
             officesBodyListView.getSelectionModel().select(newBodyRecord);
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             errorAlert(
                     "Precedence \"" + officesBodyPrecedenceTextField.getText() + "\" must be formatted as a double.");
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
@@ -807,11 +737,9 @@ public class DbController implements Initializable
 
     public void officesNewOfficeAction()
     {
-        try
-        {
+        try {
             String workingTitle = officesOfficeTitleTextField.getText();
-            if (!isValidTitle(workingTitle))
-            {
+            if (!isValidTitle(workingTitle)) {
                 throw new RuntimeException("Title must be <= " + MAX_OFFICE_TITLE_LENGTH + " and >= "
                         + MIN_OFFICE_TITLE_LENGTH);
             }
@@ -819,8 +747,7 @@ public class DbController implements Initializable
                     .where(officeTitle.eq(workingTitle).and(officeBodyId.eq(new BigInteger(
                             String.valueOf(selectedBody.getBodyid())))))
                     .fetchOneInto(OfficeRecord.class);
-            if (workingRecord != null)
-            {
+            if (workingRecord != null) {
                 throw new RuntimeException("Office \"" + workingTitle + "\" already exists for this body.");
             }
             Double newPrecedence = Double.parseDouble(officesOfficePrecedenceTextField.getText());
@@ -833,23 +760,19 @@ public class DbController implements Initializable
             officesOfficeListObs.add(workingRecord);
             officesOfficeListObs.sort(Comparator.comparing(OfficeRecord::getOfficeprecedence));
             officesOfficeListView.getSelectionModel().select(workingRecord);
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             errorAlert("Precedence \"" + officesOfficePrecedenceTextField.getText()
                     + "\" must be formatted as a double.");
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }
 
     public void officesUpdateOfficeAction()
     {
-        try
-        {
+        try {
             String newTitle = officesOfficeTitleTextField.getText();
-            if (!isValidTitle(newTitle))
-            {
+            if (!isValidTitle(newTitle)) {
                 throw new RuntimeException("Title must be <= " + MAX_OFFICE_TITLE_LENGTH + " and >= "
                         + MIN_OFFICE_TITLE_LENGTH);
             }
@@ -866,12 +789,10 @@ public class DbController implements Initializable
             officesOfficeListObs.add(newOfficeRecord);
             officesOfficeListObs.sort(Comparator.comparing(OfficeRecord::getOfficeprecedence));
             officesOfficeListView.getSelectionModel().select(newOfficeRecord);
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             errorAlert("Precedence \"" + officesOfficePrecedenceTextField.getText()
                     + "\" must be formatted as a double.");
-        } catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             errorAlert(e.getMessage());
         }
     }

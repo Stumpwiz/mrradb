@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress VulnerableLibrariesLocal -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,14 +13,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <version.javafx>18-ea+9</version.javafx>
+        <version.glisten>6.1.1</version.glisten>
+        <version.javafx>18.0.2</version.javafx>
         <version.javafx.maven>0.0.8</version.javafx.maven>
-        <version.jetbrains>22.0.0</version.jetbrains>
-        <version.jooq>3.16.3</version.jooq>
-        <version.junit>5.8.2</version.junit>
+        <version.jetbrains>23.0.0</version.jetbrains>
+        <version.jooq>3.17.3</version.jooq>
+        <version.junit>5.9.0</version.junit>
         <version.maven.compile>3.8.1</version.maven.compile>
         <version.maven.config>17</version.maven.config>
-        <version.mysql>8.0.27</version.mysql>
+        <version.mysql>8.0.30</version.mysql>
+        <version.sl4j>2.0.0</version.sl4j>
     </properties>
 
     <dependencies>
@@ -60,7 +63,6 @@
             <artifactId>jooq-codegen-maven</artifactId>
             <version>${version.jooq}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
@@ -72,15 +74,7 @@
         <dependency>
             <groupId>com.gluonhq</groupId>
             <artifactId>charm-glisten</artifactId>
-            <version>6.1.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.0-alpha5</version>
-            <scope>test</scope>
+            <version>${version.glisten}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
@@ -103,10 +97,23 @@
             <version>${version.jetbrains}</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${version.sl4j}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.jreleaser</groupId>
+                <artifactId>jreleaser-maven-plugin</artifactId>
+                <version>1.0.0-RC2</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -160,7 +167,7 @@
                 <configuration>
                     <jdbc>
                         <driver>com.mysql.cj.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost:3306/raj</url>
+                        <url>jdbc:mysql://trilda:3306/raj</url>
                         <user>rajadmin</user>
                         <password>password</password>
                     </jdbc>
@@ -182,7 +189,7 @@
                         </generate>
                         <target>
                             <packageName>net.stumpwiz.mrradb.model</packageName>
-                            <directory>C:\Users\Geo\Git\mrradb\src\main\java</directory>
+                            <directory>C:\Users\Geo\OneDrive\Git\mrradb\src\main\java</directory>
                         </target>
                     </generator>
                 </configuration>
