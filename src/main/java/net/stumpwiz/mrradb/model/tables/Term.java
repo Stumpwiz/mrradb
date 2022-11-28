@@ -34,27 +34,30 @@ public class Term extends TableImpl<TermRecord>
     public static final Term TERM = new Term();
 
     /**
+     * The column <code>raj.term.end</code>.
+     */
+    public final TableField<TermRecord, LocalDate> END = createField(DSL.name("end"), SQLDataType.LOCALDATE, this, "");
+
+    /**
      * The column <code>raj.term.start</code>.
      */
     public final TableField<TermRecord, LocalDate> START = createField(DSL.name("start"), SQLDataType.LOCALDATE, this, "");
+    private transient Person _person;
+
     /**
      * The column <code>raj.term.ordinal</code>.
      */
     public final TableField<TermRecord, String> ORDINAL = createField(DSL.name("ordinal"), SQLDataType.CHAR(7), this, "");
 
     /**
-     * The column <code>raj.term.end</code>.
-     */
-    public final TableField<TermRecord, LocalDate> END = createField(DSL.name("end"), SQLDataType.LOCALDATE, this, "");
-    /**
      * The column <code>raj.term.termpersonid</code>.
      */
     public final TableField<TermRecord, Long> TERMPERSONID = createField(DSL.name("termpersonid"), SQLDataType.BIGINT.nullable(false), this, "");
+
     /**
      * The column <code>raj.term.termofficeid</code>.
      */
     public final TableField<TermRecord, Long> TERMOFFICEID = createField(DSL.name("termofficeid"), SQLDataType.BIGINT.nullable(false), this, "");
-    private transient Person _person;
     private transient Office _office;
 
     private Term(Name alias, Table<TermRecord> aliased)

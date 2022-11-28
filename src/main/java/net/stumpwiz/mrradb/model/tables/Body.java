@@ -30,34 +30,38 @@ public class Body extends TableImpl<BodyRecord>
      */
     public static final Body BODY = new Body();
 
+    private Body(Name alias, Table<BodyRecord> aliased)
+    {
+        this(alias, aliased, null);
+    }
+
     /**
      * The column <code>raj.body.bodyid</code>.
      */
     public final TableField<BodyRecord, Long> BODYID = createField(DSL.name("bodyid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+
     /**
      * The column <code>raj.body.bodyimage</code>. Name of the graphic file that
      * represents the body in reports and web pages.
      */
     public final TableField<BodyRecord, String> BODYIMAGE = createField(DSL.name("bodyimage"), SQLDataType.VARCHAR(45), this, "Name of the graphic file that represents the body in reports and web pages.");
+
     /**
      * The column <code>raj.body.name</code>.
      */
     public final TableField<BodyRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(45).nullable(false), this, "");
+
     /**
      * The column <code>raj.body.mission</code>.
      */
     public final TableField<BodyRecord, String> MISSION = createField(DSL.name("mission"), SQLDataType.VARCHAR(512), this, "");
+
     /**
      * The column <code>raj.body.bodyprecedence</code>. Field for ordering in
      * reports and web pages.  Stored as double to allow insertions of new
      * bodies.
      */
     public final TableField<BodyRecord, Double> BODYPRECEDENCE = createField(DSL.name("bodyprecedence"), SQLDataType.DOUBLE.nullable(false), this, "Field for ordering in reports and web pages.  Stored as double to allow insertions of new bodies.");
-
-    private Body(Name alias, Table<BodyRecord> aliased)
-    {
-        this(alias, aliased, null);
-    }
 
     private Body(Name alias, Table<BodyRecord> aliased, Field<?>[] parameters)
     {

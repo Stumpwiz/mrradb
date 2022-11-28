@@ -455,7 +455,8 @@ public class DbController implements Initializable
     @FXML
     protected void onBackupButtonCLick() throws IOException, InterruptedException
     {
-        String cmd = "cmd.exe /c mysqldump -u root -p$Hydr5649 raj > " + OS_PATH + BACKUP_FILE;
+        String cmd = "cmd.exe /c mysqldump -u " + USER_NAME + " -p" + PASSWORD + " --host=TRILDA --no-tablespaces raj > "
+                + OS_PATH + BACKUP_FILE;
         Process process = Runtime.getRuntime().exec(cmd);
         Functions.StreamGobbler streamGobbler = new Functions.StreamGobbler(process.getInputStream(),
                 System.out::println);

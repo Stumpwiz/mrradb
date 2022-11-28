@@ -32,29 +32,34 @@ public class Person extends TableImpl<PersonRecord>
     public static final Person PERSON = new Person();
 
     /**
+     * The column <code>raj.person.personimage</code>.
+     */
+    public final TableField<PersonRecord, String> PERSONIMAGE = createField(DSL.name("personimage"), SQLDataType.VARCHAR(45), this, "");
+
+    /**
      * The column <code>raj.person.personid</code>.
      */
     public final TableField<PersonRecord, Long> PERSONID = createField(DSL.name("personid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+
     /**
      * The column <code>raj.person.first</code>.
      */
     public final TableField<PersonRecord, String> FIRST = createField(DSL.name("first"), SQLDataType.VARCHAR(15), this, "");
+
     /**
      * The column <code>raj.person.last</code>.
      */
     public final TableField<PersonRecord, String> LAST = createField(DSL.name("last"), SQLDataType.VARCHAR(30), this, "");
+
     /**
      * The column <code>raj.person.email</code>.
      */
     public final TableField<PersonRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
+
     /**
      * The column <code>raj.person.phone</code>.
      */
     public final TableField<PersonRecord, String> PHONE = createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
-    /**
-     * The column <code>raj.person.personimage</code>.
-     */
-    public final TableField<PersonRecord, String> PERSONIMAGE = createField(DSL.name("personimage"), SQLDataType.VARCHAR(45), this, "");
 
     /**
      * The column <code>raj.person.apt</code>.

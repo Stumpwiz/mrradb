@@ -32,23 +32,27 @@ public class Office extends TableImpl<OfficeRecord>
      */
     public static final Office OFFICE = new Office();
 
+    private transient Body _body;
+
     /**
      * The column <code>raj.office.officeid</code>.
      */
     public final TableField<OfficeRecord, Long> OFFICEID = createField(DSL.name("officeid"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+
     /**
      * The column <code>raj.office.title</code>.
      */
     public final TableField<OfficeRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(45), this, "");
+
     /**
      * The column <code>raj.office.officeprecedence</code>.
      */
     public final TableField<OfficeRecord, Double> OFFICEPRECEDENCE = createField(DSL.name("officeprecedence"), SQLDataType.DOUBLE, this, "");
+
     /**
      * The column <code>raj.office.officebodyid</code>.
      */
     public final TableField<OfficeRecord, Long> OFFICEBODYID = createField(DSL.name("officebodyid"), SQLDataType.BIGINT, this, "");
-    private transient Body _body;
 
     private Office(Name alias, Table<OfficeRecord> aliased)
     {

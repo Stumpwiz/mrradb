@@ -38,9 +38,9 @@ public class Constants
     public static final int MIN_PERSON_FIRST_LENGTH = 1;
     public static final int MIN_PERSON_LAST_LENGTH = 1;
     public static final LocalDate MIN_TERM_START = LocalDate.of(2002, 1, 1);
-    public static final String OS_PATH = "C:\\Users\\Geo\\OneDrive\\Documents\\MercyRidge\\AdminAssistant\\0Roster\\";
+    public static final String OS_PATH = "C:\\Users\\Geo\\OneDrive\\MercyRidge\\AdminAssistant\\1Roster\\";
     public static final String MISSING_PERSON_IMAGE = "missingPhoto.png";
-    public static final String PATH = "C:/Users/Geo/OneDrive/Documents/MercyRidge/AdminAssistant/0Roster/";
+    public static final String PATH = "C:/Users/Geo/OneDrive/MercyRidge/AdminAssistant/1Roster/";
     public static final int SECOND_ELEMENT = 1;
     public static final String PASSWORD = "password";
     public static final int THIRD_ELEMENT = 2;

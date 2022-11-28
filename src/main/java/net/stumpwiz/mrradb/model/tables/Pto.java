@@ -31,87 +31,99 @@ public class Pto extends TableImpl<PtoRecord>
     public static final Pto PTO = new Pto();
 
     /**
+     * The column <code>raj.pto.last</code>.
+     */
+    public final TableField<PtoRecord, String> LAST = createField(DSL.name("last"), SQLDataType.VARCHAR(30), this, "");
+
+    /**
      * The column <code>raj.pto.personid</code>.
      */
     public final TableField<PtoRecord, Long> PERSONID = createField(DSL.name("personid"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
+
     /**
      * The column <code>raj.pto.first</code>.
      */
     public final TableField<PtoRecord, String> FIRST = createField(DSL.name("first"), SQLDataType.VARCHAR(15), this, "");
-    /**
-     * The column <code>raj.pto.email</code>.
-     */
-    public final TableField<PtoRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
-
-    /**
-     * The column <code>raj.pto.last</code>.
-     */
-    public final TableField<PtoRecord, String> LAST = createField(DSL.name("last"), SQLDataType.VARCHAR(30), this, "");
-    /**
-     * The column <code>raj.pto.phone</code>.
-     */
-    public final TableField<PtoRecord, String> PHONE = createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
     /**
      * The column <code>raj.pto.start</code>.
      */
     public final TableField<PtoRecord, LocalDate> START = createField(DSL.name("start"), SQLDataType.LOCALDATE, this, "");
 
     /**
+     * The column <code>raj.pto.email</code>.
+     */
+    public final TableField<PtoRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(45), this, "");
+
+    /**
+     * The column <code>raj.pto.phone</code>.
+     */
+    public final TableField<PtoRecord, String> PHONE = createField(DSL.name("phone"), SQLDataType.VARCHAR(19), this, "");
+
+    /**
      * The column <code>raj.pto.apt</code>.
      */
     public final TableField<PtoRecord, String> APT = createField(DSL.name("apt"), SQLDataType.CHAR(4), this, "");
+    /**
+     * The column <code>raj.pto.end</code>.
+     */
+    public final TableField<PtoRecord, LocalDate> END = createField(DSL.name("end"), SQLDataType.LOCALDATE, this, "");
+
+    private Pto(Name alias, Table<PtoRecord> aliased)
+    {
+        this(alias, aliased, null);
+    }
+
     /**
      * The column <code>raj.pto.ordinal</code>.
      */
     public final TableField<PtoRecord, String> ORDINAL = createField(DSL.name("ordinal"), SQLDataType.CHAR(7), this, "");
 
     /**
-     * The column <code>raj.pto.end</code>.
-     */
-    public final TableField<PtoRecord, LocalDate> END = createField(DSL.name("end"), SQLDataType.LOCALDATE, this, "");
-    /**
      * The column <code>raj.pto.termpersonid</code>.
      */
     public final TableField<PtoRecord, Long> TERMPERSONID = createField(DSL.name("termpersonid"), SQLDataType.BIGINT.nullable(false), this, "");
+
     /**
      * The column <code>raj.pto.termofficeid</code>.
      */
     public final TableField<PtoRecord, Long> TERMOFFICEID = createField(DSL.name("termofficeid"), SQLDataType.BIGINT.nullable(false), this, "");
+
     /**
      * The column <code>raj.pto.officeid</code>.
      */
     public final TableField<PtoRecord, Long> OFFICEID = createField(DSL.name("officeid"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
+
     /**
      * The column <code>raj.pto.title</code>.
      */
     public final TableField<PtoRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(45), this, "");
+
     /**
      * The column <code>raj.pto.officeprecedence</code>.
      */
     public final TableField<PtoRecord, Double> OFFICEPRECEDENCE = createField(DSL.name("officeprecedence"), SQLDataType.DOUBLE, this, "");
+
     /**
      * The column <code>raj.pto.officebodyid</code>.
      */
     public final TableField<PtoRecord, Long> OFFICEBODYID = createField(DSL.name("officebodyid"), SQLDataType.BIGINT, this, "");
+
     /**
      * The column <code>raj.pto.bodyid</code>.
      */
     public final TableField<PtoRecord, Long> BODYID = createField(DSL.name("bodyid"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINT)), this, "");
+
     /**
      * The column <code>raj.pto.name</code>.
      */
     public final TableField<PtoRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(45).nullable(false), this, "");
+
     /**
      * The column <code>raj.pto.bodyprecedence</code>. Field for ordering in
      * reports and web pages.  Stored as double to allow insertions of new
      * bodies.
      */
     public final TableField<PtoRecord, Double> BODYPRECEDENCE = createField(DSL.name("bodyprecedence"), SQLDataType.DOUBLE.nullable(false), this, "Field for ordering in reports and web pages.  Stored as double to allow insertions of new bodies.");
-
-    private Pto(Name alias, Table<PtoRecord> aliased)
-    {
-        this(alias, aliased, null);
-    }
 
     private Pto(Name alias, Table<PtoRecord> aliased, Field<?>[] parameters)
     {
