@@ -26,8 +26,8 @@ public class JooqDefs
      **************************************************************************/
     public static final Field<BigInteger> bodyId = field("bodyid", BigInteger.class);
     public static final Field<String> bodyImage = field("bodyimage", String.class);
-    public static final Field<String> bodyMission = field("mission", String.class);
     public static final Field<String> bodyName = field("name", String.class);
+    public static final Field<String> bodyMission = field("mission", String.class);
     public static final Field<BigDecimal> bodyPrecedence = field("bodyprecedence", BigDecimal.class);
     @SuppressWarnings("unused")
     public static final List<Field<?>> bodyFields = Arrays.asList(bodyId, bodyImage, bodyName, bodyMission, bodyPrecedence);
@@ -36,10 +36,10 @@ public class JooqDefs
     /***************************************************************************
      * OFFICE
      **************************************************************************/
-    public static final Field<BigInteger> officeBodyId = field("officebodyid", BigInteger.class);
     public static final Field<BigInteger> officeId = field("officeid", BigInteger.class);
-    public static final Field<BigDecimal> officePrecedence = field("officeprecedence", BigDecimal.class);
     public static final Field<String> officeTitle = field("title", String.class);
+    public static final Field<BigDecimal> officePrecedence = field("officeprecedence", BigDecimal.class);
+    public static final Field<BigInteger> officeBodyId = field("officebodyid", BigInteger.class);
     @SuppressWarnings("unused")
     public static final List<Field<?>> officeFields = Arrays.asList(officeId, officeTitle, officePrecedence, officeBodyId);
     @SuppressWarnings("unused")
@@ -92,9 +92,9 @@ public class JooqDefs
      * TERM
      **************************************************************************/
     public static final Field<LocalDate> termEnd = field("end", LocalDate.class);
-    public static final Field<BigInteger> termOfficeId = field("termofficeid", BigInteger.class);
+    public static final Field<BigInteger> termOfficeId = field("officeid", BigInteger.class);
     public static final Field<String> termOrdinal = field("ordinal", String.class);
-    public static final Field<BigInteger> termPersonId = field("termpersonid", BigInteger.class);
+    public static final Field<BigInteger> termPersonId = field("personid", BigInteger.class);
     public static final Field<LocalDate> termStart = field("start", LocalDate.class);
     @SuppressWarnings("unused")
     public static final List<Field<?>> termFields = Arrays.asList(termStart, termEnd, termOrdinal, termPersonId,

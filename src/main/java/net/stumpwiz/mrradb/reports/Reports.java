@@ -3,7 +3,7 @@
  */
 package net.stumpwiz.mrradb.reports;
 
-import net.stumpwiz.mrradb.model.tables.records.PtoRecord;
+import net.stumpwiz.mrradb.generated.tables.records.PtoRecord;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
@@ -37,14 +37,16 @@ public final class Reports
                 .and(termEnd.le(endOfYear))
                 .orderBy(bodyPrecedence, officePrecedence, personFirst,
                         personLast).fetchInto(PtoRecord.class);
-        writeHeader(writer, "Vacancies and Expirations This Year");
+        writeHeader(writer, "Vacancies and Expirations This Year\\footnote{Incumbents with " +
+                "expiring second terms are term-limited.}");
         writer.write("\\begin{center} \n");
         writer.write("\\footnotesize \n");
         writer.write("\\begin{tabular}{llll} \n");
         writer.write("{\\em Body} & {\\em Office} & {\\em Incumbent} &  {\\em " + "Term} \\\\ \\hline \n");
         for (PtoRecord record : expiringAndVacantRecords) {
             LocalDate endOfTerm = LocalDate.parse(Objects.requireNonNull(termEnd.getValue(record)).toString());
-            if (endOfTerm.isBefore(endOfYear) || endOfTerm.isEqual(endOfYear)) {
+            if (endOfTerm.isBefore(endOfYear) || endOfTerm.isEqual(endOfYear) &&
+                    !Objects.equals(officeTitle.getValue(record), "Liaison")) {
                 writer.write(bodyName.getValue(record) + " & " + officeTitle.getValue(record) + " & "
                         + personFirst.getValue(record) + " " + personLast.getValue(record) + " & " +
                         termOrdinal.getValue(record) + " \\\\ \n");

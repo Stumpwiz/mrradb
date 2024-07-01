@@ -20,7 +20,7 @@ public class Constants
     public static final String EXPIRATIONS = "expirations";
     public static final String EXPIRATIONS_REPORT = "expirations";
     public static final int FIRST_ELEMENT = 0;
-    public static final String IMAGE_PATH = "C:\\Users\\Geo\\OneDrive\\Git\\mrradb\\src\\main\\resources\\img\\";
+    public static final String IMAGE_PATH = "C:\\Users\\Geo\\OneDrive\\IdeaProjects\\mrradb\\src\\main\\resources\\img\\";
     public static final int MAX_BODY_MISSION_LENGTH = 512;
     public static final int MAX_BODY_NAME_LENGTH = 45;
     public static final int MAX_OFFICE_TITLE_LENGTH = 45;
@@ -42,7 +42,7 @@ public class Constants
     public static final String MISSING_PERSON_IMAGE = "missingPhoto.png";
     public static final String PATH = "C:/Users/Geo/OneDrive/MercyRidge/AdminAssistant/1Roster/";
     public static final int SECOND_ELEMENT = 1;
-    public static final String PASSWORD = "password";
+    public static final String PASSWORD = "rajadmin";
     public static final int THIRD_ELEMENT = 2;
     public static final String ROSTER_LONG = "rosterLong";
     public static final String ROSTER_LONG_REPORT = "rosterLong";
@@ -50,7 +50,7 @@ public class Constants
     public static final String ROSTER_SHORT_REPORT = "rosterShort";
     public static final String USER_NAME = "rajadmin";
     public static final String TEX = ".tex";
-    public static final String URL = "jdbc:mysql://trilda:3306/raj";
+    public static final String URL = "jdbc:mysql://blacksun:3306/raj";
     public static final String VACANT = "(Vacant)";
     public static final BigInteger VACANT_ID = new BigInteger("18");
     static final List<String> VALID_ORDINALS = Arrays.asList("First", "Second", "None");

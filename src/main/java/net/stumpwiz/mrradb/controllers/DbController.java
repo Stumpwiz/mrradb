@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import net.stumpwiz.mrradb.model.tables.records.*;
+import net.stumpwiz.mrradb.generated.tables.records.*;
 import net.stumpwiz.mrradb.utilities.Functions;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -166,9 +166,6 @@ public class DbController implements Initializable
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle)
     {
-        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        //%%%%% PEOPLE tab initialization %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         List<PersonRecord> peoplePersonList = create.select(personFields).from(personTable).orderBy(personFirst,
                 personLast).fetchInto(PersonRecord.class);
         peoplePersonListObs.setAll(peoplePersonList);
@@ -538,8 +535,7 @@ public class DbController implements Initializable
             if (!isValidLast(workingLast)) {
                 throw new RuntimeException("\"" + workingLast + "\" is not a valid last name.");
             }
-            selectedPerson = create.select(personFields).from(personTable).where(personFirst.eq(workingFirst))
-                    .and(personLast.eq(workingLast)).fetchOneInto(PersonRecord.class);
+            selectedPerson = create.select(personFields).from(personTable).where(personId.eq(workingId)).fetchOneInto(PersonRecord.class);
             String workingEmail = peopleEmailTextField.getText();
             if (!isValidEmail(workingEmail)) {
                 throw new RuntimeException("\"" + workingEmail + "\" is not a valid email address.");

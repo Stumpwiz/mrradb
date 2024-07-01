@@ -8,14 +8,14 @@ Association and with management, with respect to matters related to our mutual i
 
 This project maintains a [MySQL](https://www.mysql.com/) database to support the Residents Association's committee
 structure.
-![Entity Relationship Diagram](./src/main/resources/img/erd.png "ERD")
+![Entity Relationship Diagram](src/main/resources/img/erd.png "ERD")
 
 The objective is to manage the many-to-many relationship between people and offices via a term record and a many-to-one
 relationship between offices and administrative bodies, as shown in the entity-relationship diagram above. Access to the
 database is via a
 [JavaFX](https://openjfx.io/) application.
 
-![JavaFX User Interface ](./src/main/resources/img/homeScreen.png "User Interface")
+![JavaFX User Interface ](src/main/resources/img/homeScreen.png "User Interface")
 
 The JavaFX application connects to the database via
 [jOOQ](https://www.jooq.org/) middleware. It generates reports by calling

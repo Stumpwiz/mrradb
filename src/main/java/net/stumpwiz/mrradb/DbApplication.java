@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class DbApplication extends Application
 {
+    //TODO Don't include expired terms in reports (substitute "vacant?")
+    //TODO Backup doesn't work.  File is zero length.
     public static void main(String[] args)
     {
         launch();
@@ -20,7 +22,7 @@ public class DbApplication extends Application
     @Override
     public void start(@NotNull Stage stage) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(DbApplication.class.getResource("db-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(DbApplication.class.getResource("/net/stumpwiz/mrradb/db-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 550);
         stage.setTitle("MRRA Database Management");
         stage.setResizable(false);
