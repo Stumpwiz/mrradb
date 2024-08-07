@@ -4,6 +4,7 @@ module net.stumpwiz.mrradb {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
+    requires org.slf4j;
 
     exports net.stumpwiz.mrradb;
     exports net.stumpwiz.mrradb.controllers;

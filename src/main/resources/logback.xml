@@ -1,0 +1,9 @@
+<configuration>
+    <!-- Suppress jOOQ INFO logs -->
+    <logger name="org.jooq" level="WARN"/>
+
+    <!-- Root logger configuration if not already present -->
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

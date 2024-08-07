@@ -587,8 +587,8 @@ public class DbController implements Initializable
             if (!isValidOrdinal(workingOrdinal)) {
                 throw new RuntimeException("Ordinal must be \"First,\" \"Second,\" or \"None.\"");
             }
-            TermRecord newTerm = new TermRecord(workingStart, workingEnd, workingOrdinal, selectedPerson.getPersonid(),
-                    selectedTermOffice.getOfficeid());
+            TermRecord newTerm = new TermRecord(selectedPerson.getPersonid(),
+                    selectedTermOffice.getOfficeid(), workingStart, workingEnd, workingOrdinal);
             create.insertInto(termTable).columns(termFields).values(newTerm).execute();
             PtoRecord newTermOfOffice = create.select(ptoFields).from(ptoTable)
                     .where(ptoTermPersonId.eq(BigInteger.valueOf(selectedPerson.getPersonid())))

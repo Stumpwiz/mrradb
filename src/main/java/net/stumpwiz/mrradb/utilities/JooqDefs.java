@@ -91,14 +91,14 @@ public class JooqDefs
     /***************************************************************************
      * TERM
      **************************************************************************/
-    public static final Field<LocalDate> termEnd = field("end", LocalDate.class);
-    public static final Field<BigInteger> termOfficeId = field("officeid", BigInteger.class);
-    public static final Field<String> termOrdinal = field("ordinal", String.class);
-    public static final Field<BigInteger> termPersonId = field("personid", BigInteger.class);
+    public static final Field<BigInteger> termPersonId = field("termPersonid", BigInteger.class);
+    public static final Field<BigInteger> termOfficeId = field("termOfficeid", BigInteger.class);
     public static final Field<LocalDate> termStart = field("start", LocalDate.class);
+    public static final Field<LocalDate> termEnd = field("end", LocalDate.class);
+    public static final Field<String> termOrdinal = field("ordinal", String.class);
     @SuppressWarnings("unused")
-    public static final List<Field<?>> termFields = Arrays.asList(termStart, termEnd, termOrdinal, termPersonId,
-            termOfficeId);
+    public static final List<Field<?>> termFields = Arrays.asList(termPersonId, termOfficeId,
+            termStart, termEnd, termOrdinal);
     @SuppressWarnings("unused")
     public static final Table<Record> termTable = table("term");
 }

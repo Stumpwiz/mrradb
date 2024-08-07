@@ -16,18 +16,18 @@
         <appModule>net.stumpwiz.mrradb</appModule>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!--        <version.glisten>6.2.2</version.glisten>-->
         <version.javafx>23-ea+22</version.javafx>
         <version.javafx.maven>0.0.8</version.javafx.maven>
         <version.jetbrains>24.1.0</version.jetbrains>
         <version.jooq>3.19.8</version.jooq>
-        <version.jpackage>1.6.2</version.jpackage>
         <version.junit>5.11.0-M2</version.junit>
+        <version.logback>1.5.6</version.logback>
         <version.maven.compile>3.8.1</version.maven.compile>
         <version.maven.config>17</version.maven.config>
-        <version.maven.jar>3.4.1</version.maven.jar>
-        <version.mysql>8.0.33</version.mysql>
-        <version.sl4j>2.0.13</version.sl4j>
+        <version.maven.jar>3.4.2</version.maven.jar>
+        <version.maven.shade>3.6.0</version.maven.shade>
+        <version.mysql>9.0.0</version.mysql>
+        <version.slf4j>2.0.13</version.slf4j>
     </properties>
 
     <dependencies>
@@ -67,12 +67,19 @@
             <artifactId>jooq-codegen-maven</artifactId>
             <version>${version.jooq}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${version.mysql}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${version.logback}</version> <!-- or the latest version -->
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.0.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -96,15 +103,13 @@
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${version.sl4j}</version>
-            <scope>test</scope>
+            <artifactId>slf4j-api</artifactId>
+            <version>${version.slf4j}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.panteleyev/jpackage-maven-plugin -->
         <dependency>
-            <groupId>org.panteleyev</groupId>
-            <artifactId>jpackage-maven-plugin</artifactId>
-            <version>1.6.2</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${version.slf4j}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <dependency>
@@ -120,52 +125,28 @@
             <resource>
                 <directory>target/generated-sources/jooq</directory>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${version.maven.jar}</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>net.stumpwiz.mrradb.DbApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.panteleyev</groupId>
-                <artifactId>jpackage-maven-plugin</artifactId>
-                <version>${version.jpackage}</version>
-
-                <configuration>
-                    <name>Application Name</name>
-                    <appVersion>${project.version}</appVersion>
-                    <vendor>app.org</vendor>
-                    <module>${appModule}/${appMainClass}</module>
-                    <modulePaths>
-                        <modulePath>target/mods</modulePath>
-                    </modulePaths>
-                    <destination>target/dist</destination>
-                    <javaOptions>
-                        <option>--enable-preview</option>
-                        <option>-Dfile.encoding=UTF-8</option>
-                    </javaOptions>
-                </configuration>
-
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${version.maven.shade}</version>
                 <executions>
                     <execution>
-                        <id>mac</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
                         <configuration>
-                            <icon>icons/icons.icns</icon>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>win</id>
-                        <configuration>
-                            <icon>icons/icon.ico</icon>
-                            <winMenu>true</winMenu>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>net.stumpwiz.mrradb.DbApplication</mainClass>
+                                </transformer>
+                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
@@ -215,8 +196,8 @@
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
+                        <groupId>com.mysql</groupId>
+                        <artifactId>mysql-connector-j</artifactId>
                         <version>${version.mysql}</version>
                     </dependency>
                 </dependencies>
