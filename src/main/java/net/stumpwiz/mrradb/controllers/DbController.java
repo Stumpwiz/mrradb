@@ -1,7 +1,6 @@
 package net.stumpwiz.mrradb.controllers;
 
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +27,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 
+import static javafx.collections.FXCollections.observableArrayList;
 import static net.stumpwiz.mrradb.reports.Reports.*;
 import static net.stumpwiz.mrradb.utilities.Constants.*;
 import static net.stumpwiz.mrradb.utilities.Functions.*;
@@ -36,12 +36,12 @@ import static org.jooq.impl.DSL.field;
 
 public class DbController implements Initializable
 {
-    private final ObservableList<BodyRecord> officesBodyListObs = FXCollections.observableArrayList();
-    private final ObservableList<OfficeRecord> officesOfficeListObs = FXCollections.observableArrayList();
-    private final ObservableList<PersonRecord> peoplePersonListObs = FXCollections.observableArrayList();
-    private final ObservableList<PtoRecord> termsPtoListObs = FXCollections.observableArrayList();
-    private final ObservableList<OfficeRecord> termsOfficesListObs = FXCollections.observableArrayList();
-    private final ObservableList<BodyRecord> termsTermBodyListObs = FXCollections.observableArrayList();
+    private final ObservableList<BodyRecord> officesBodyListObs = observableArrayList();
+    private final ObservableList<OfficeRecord> officesOfficeListObs = observableArrayList();
+    private final ObservableList<PersonRecord> peoplePersonListObs = observableArrayList();
+    private final ObservableList<PtoRecord> termsPtoListObs = observableArrayList();
+    private final ObservableList<OfficeRecord> termsOfficesListObs = observableArrayList();
+    private final ObservableList<BodyRecord> termsTermBodyListObs = observableArrayList();
     final Connection conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
     final DSLContext create = DSL.using(conn, SQLDialect.MYSQL);
     private BodyRecord selectedBody = new BodyRecord();
@@ -452,8 +452,8 @@ public class DbController implements Initializable
     @FXML
     protected void onBackupButtonCLick() throws IOException, InterruptedException
     {
-        String cmd = "cmd.exe /c mysqldump -u " + USER_NAME + " -p" + PASSWORD + " --host=TRILDA --no-tablespaces raj > "
-                + OS_PATH + BACKUP_FILE;
+        String cmd = "cmd.exe /c mysqldump -u " + USER_NAME + " -p" + PASSWORD + " --host" +
+                "=BLACKSUN --no-tablespaces raj > " + OS_PATH + BACKUP_FILE;
         Process process = Runtime.getRuntime().exec(cmd);
         Functions.StreamGobbler streamGobbler = new Functions.StreamGobbler(process.getInputStream(),
                 System.out::println);

@@ -17,7 +17,6 @@ public class DbApplication extends Application
     private static final Logger logger = LoggerFactory.getLogger(DbApplication.class);
 
     //TODO Don't include expired terms in reports (substitute "vacant?")
-    //TODO Backup doesn't work.  File is zero length.
     public static void main(String[] args)
     {
         launch();
