@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import static net.stumpwiz.mrradb.utilities.Constants.*;
 import static net.stumpwiz.mrradb.utilities.JooqDefs.*;
@@ -23,6 +24,7 @@ import static net.stumpwiz.mrradb.utilities.JooqDefs.*;
 public final class Reports
 {
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+    private static final Logger LOGGER = Logger.getLogger(Reports.class.getName());
 
     public static void doExpirations(@NotNull DSLContext create) throws Exception
     {
@@ -159,6 +161,37 @@ public final class Reports
             writer.write("\\end{tabular} \n");
             writer.write("\\end{center} \n");
         }
+        writer.write("\\end{document} \n");
+        writer.close();
+    }
+
+    public static void doVacancies(@NotNull DSLContext create) throws Exception
+    {
+        Writer writer =
+                new BufferedWriter(new OutputStreamWriter(new FileOutputStream(OS_PATH + VACANCIES
+                        + TEX), StandardCharsets.UTF_8));
+        List<PtoRecord> vacancyRecords = create
+                .select(ptoFields).from(ptoTable)
+                .where(termPersonId.eq(personId)
+                        .and(termOfficeId.eq(officeId))
+                        .and(officeBodyId.eq(bodyId)))
+                .and(personFirst.startsWith(VACANT))
+                .orderBy(bodyPrecedence, officePrecedence, personFirst,
+                        personLast).fetchInto(PtoRecord.class);
+        LOGGER.info("Number of vacancy records fetched: " + vacancyRecords.size());
+        writeHeader(writer, "Current Vacancies");
+        writer.write("\\begin{center} \n");
+        writer.write("\\footnotesize \n");
+        writer.write("\\begin{tabular}{lll} \n");
+        writer.write("{\\em Body} & {\\em Office} & {\\em Incumbent} \\\\ \\hline \n");
+        for (PtoRecord record : vacancyRecords) {
+            if (!Objects.equals(officeTitle.getValue(record), "Liaison")) {
+                writer.write(bodyName.getValue(record) + " & " + officeTitle.getValue(record) + " & "
+                        + personFirst.getValue(record) + " " + personLast.getValue(record) + " \\\\ \n");
+            }
+        }
+        writer.write("\\end{tabular} \n");
+        writer.write("\\end{center} \n");
         writer.write("\\end{document} \n");
         writer.close();
     }

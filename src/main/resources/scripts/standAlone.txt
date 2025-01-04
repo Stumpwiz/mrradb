@@ -1,0 +1,1 @@
+"C:\Program Files\Zulu\zulu-21\bin\javaw.exe" --module-path "C:\javafx-sdk-22.0.2\lib" --add-modules javafx.controls,javafx.fxml -jar "C:\Users\Geo\OneDrive\MercyRidge\AdminAssistant\mrradb-1.0-SNAPSHOT.jar"

@@ -61,6 +61,8 @@ public class DbController implements Initializable
     private Button backupButton;
     @FXML
     private Button restoreButton;
+    @FXML
+    private Button vacanciesButton;
     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //%%%%% PEOPLE tab functionality %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -304,9 +306,8 @@ public class DbController implements Initializable
                     }
                 });
         peoplePersonListView.setItems(peoplePersonListObs);
-        /* First item on the list is (Vacant), so get the second */
-        peoplePersonListView.getSelectionModel().select(SECOND_ELEMENT);
-        peoplePersonListView.getFocusModel().focus(SECOND_ELEMENT);
+        peoplePersonListView.getSelectionModel().select(FIRST_ELEMENT);
+        peoplePersonListView.getFocusModel().focus(FIRST_ELEMENT);
         selectedPerson = peoplePersonListView.getSelectionModel().getSelectedItem();
 
 
@@ -447,6 +448,12 @@ public class DbController implements Initializable
     {
         doExpirations(create);
         formatDisplayAndClean(EXPIRATIONS);
+    }
+
+    public void onVacanciesButtonClick() throws Exception
+    {
+        doVacancies(create);
+        formatDisplayAndClean(VACANCIES);
     }
 
     @FXML
