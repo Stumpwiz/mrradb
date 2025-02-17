@@ -460,7 +460,7 @@ public class DbController implements Initializable
     protected void onBackupButtonCLick() throws IOException, InterruptedException
     {
         String cmd = "cmd.exe /c mysqldump -u " + USER_NAME + " -p" + PASSWORD + " --host" +
-                "=BLACKSUN --no-tablespaces raj > " + OS_PATH + BACKUP_FILE;
+                "=localhost --no-tablespaces raj > " + OS_PATH + BACKUP_FILE;
         Process process = Runtime.getRuntime().exec(cmd);
         Functions.StreamGobbler streamGobbler = new Functions.StreamGobbler(process.getInputStream(),
                 System.out::println);
