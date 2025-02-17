@@ -72,6 +72,7 @@ public final class Reports
         writer.write("\\usepackage{sectsty} \n");
         writer.write("\\allsectionsfont{\\centering} \n");
         writer.write("\\begin{document} \n");
+        writer.write("\\raggedbottom \n");
         LocalDateTime prepDate = LocalDateTime.now();
         writer.write("\\def\\prepDate{" + prepDate.format(formatter) + "} \n");
         writer.write("\\def\\version{Generated~\\prepDate} \n");
